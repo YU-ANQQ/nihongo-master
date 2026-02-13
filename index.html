@@ -548,22 +548,65 @@ getNew(limit=5){const d=Store.load();const learned=new Set(Object.keys(d.vocab))
 // ================================================================
 const TTS={
 _speaking:false,
+_unlocked:false,  // Track if audio context has been unlocked by user gesture
+_voices:[],
+_voiceReady:false,
 get enabled(){return Store.load().settings.soundEnabled},
-speak(text,lang="ja-JP"){
-  if(!this.enabled||!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang=lang;u.rate=0.85;u.pitch=1;u.volume=1;
-  // Try to find a Japanese voice
-  const voices=window.speechSynthesis.getVoices();
-  const jaVoice=voices.find(v=>v.lang.startsWith("ja"))||voices.find(v=>v.lang.includes("JP"));
-  if(jaVoice)u.voice=jaVoice;
-  u.onstart=()=>{this._speaking=true;document.querySelectorAll(".sound-btn.playing").forEach(b=>b.classList.remove("playing"))};
-  u.onend=()=>{this._speaking=false};
-  u.onerror=()=>{this._speaking=false};
-  window.speechSynthesis.speak(u);
-  return u;
+
+// Initialize: load voices and set up unlock listener
+init(){
+  if(!window.speechSynthesis)return;
+  // Load voices (async on some browsers)
+  const loadVoices=()=>{
+    this._voices=speechSynthesis.getVoices();
+    if(this._voices.length)this._voiceReady=true;
+  };
+  loadVoices();
+  speechSynthesis.onvoiceschanged=loadVoices;
+
+  // Unlock TTS on first user interaction (required by mobile browsers)
+  const unlock=()=>{
+    if(this._unlocked)return;
+    // Speak empty utterance to unlock audio context
+    const u=new SpeechSynthesisUtterance("");
+    u.volume=0;u.lang="ja-JP";
+    speechSynthesis.speak(u);
+    this._unlocked=true;
+    // Remove listeners after unlock
+    document.removeEventListener("touchstart",unlock);
+    document.removeEventListener("click",unlock);
+  };
+  document.addEventListener("touchstart",unlock,{once:false,passive:true});
+  document.addEventListener("click",unlock,{once:false});
 },
+
+speak(text,lang="ja-JP"){
+  if(!this.enabled||!window.speechSynthesis||!text)return;
+  // Cancel any ongoing speech
+  speechSynthesis.cancel();
+
+  // Small delay to ensure cancel completes (Chrome bug workaround)
+  setTimeout(()=>{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=lang;u.rate=0.8;u.pitch=1;u.volume=1;
+
+    // Find best Japanese voice
+    if(this._voices.length){
+      const ja=this._voices.filter(v=>v.lang&&(v.lang.startsWith("ja")||v.lang.includes("JP")));
+      // Prefer local/native voices over network voices for reliability
+      const local=ja.find(v=>v.localService);
+      const any=ja[0];
+      if(local)u.voice=local;else if(any)u.voice=any;
+    }
+
+    u.onstart=()=>this._speaking=true;
+    u.onend=()=>this._speaking=false;
+    u.onerror=(e)=>{this._speaking=false;console.log("TTS error:",e.error)};
+
+    speechSynthesis.speak(u);
+  },50);
+},
+
 // Play and highlight the button that triggered it
 playBtn(text,btnEl){
   if(!this.enabled)return;
@@ -574,8 +617,6 @@ speakerSVG:'<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 
 speakerSVGsm:'<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>',
 btn(text,sm){return`<button class="sound-btn${sm?" sound-btn-sm":""}" onclick="event.stopPropagation();TTS.playBtn('${text.replace(/'/g,"\\'")}',this)">${sm?this.speakerSVGsm:this.speakerSVG}</button>`},
 };
-// Pre-load voices (some browsers need this)
-if(window.speechSynthesis){speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
 
 // ================================================================
 // CORE: Theme Manager
@@ -719,8 +760,10 @@ renderFlashcard(el){
       <button class="btn btn-error" onclick="Gojuon.rate(false)">不認識</button>
       <button class="btn btn-success" onclick="Gojuon.rate(true)">認識</button>
     </div>`:""}`;
+  // Auto-play: always speak the kana when card appears
+  TTS.speak(k.h);
 },
-flip(){this.flipped=!this.flipped;this.renderFlashcard(document.getElementById("gojuon-content"));if(this.flipped){const k=this.deck[this.idx];if(k)TTS.speak(k.h)}},
+flip(){this.flipped=!this.flipped;this.renderFlashcard(document.getElementById("gojuon-content"))},
 rate(ok){
   const k=this.deck[this.idx];const d=Store.load();
   if(!d.gojuon[k.r])d.gojuon[k.r]={mastered:false,correctCount:0,wrongCount:0,lastPracticed:today()};
@@ -746,6 +789,8 @@ renderQuiz(el){
     <div class="quiz-question">${qChar}</div>
     <div class="quiz-options">${this.quizOpts.map((o,i)=>`<button class="quiz-option" id="gq${i}" onclick="Gojuon.answer(${i})">${o.r}</button>`).join("")}</div>
     <div class="quiz-feedback" id="gojuon-feedback"></div>`;
+  // Auto-play: speak the kana when quiz question appears
+  TTS.speak(k.h);
 },
 answer(i){
   if(this.answered)return;this.answered=true;
@@ -822,8 +867,10 @@ render(){
       <button class="rate-btn r3" onclick="VocabMod.rate(3)">想了一下</button>
       <button class="rate-btn r5" onclick="VocabMod.rate(5)">非常熟悉</button>
     </div>`:""}`;
+  // Auto-play: speak the word when card appears
+  TTS.speak(v.rd);
 },
-flip(){if(!this.flipped){this.flipped=true;this.render();const item=this.deck[this.idx];if(item)TTS.speak(item.vocab.rd)}},
+flip(){if(!this.flipped){this.flipped=true;this.render()}},
 rate(q){
   const item=this.deck[this.idx];const d=Store.load();const id=String(item.vocab.id);
   if(!d.vocab[id])d.vocab[id]=SM2.newCard();
@@ -939,6 +986,9 @@ renderQuestion(){
   }
   el.innerHTML=html;
   if(q.type==="typing")setTimeout(()=>{const inp=document.getElementById("typing-ans");if(inp)inp.focus()},100);
+  // Auto-play: speak the question when it appears
+  if(q.type==="choice"&&q.answerFull)TTS.speak(q.answerFull.rd);
+  else if(q.type==="gojuon"){const k=ALL_KANA.find(x=>x.h===q.question);if(k)TTS.speak(k.h)}
 },
 pick(i){
   const q=this.questions[this.qIdx];
@@ -1113,6 +1163,7 @@ function hideModal(){document.getElementById("modal-overlay").classList.remove("
 (function(){
   Store.load();
   Theme.init();
+  TTS.init();
   Router.init();
   Home.render();
 
