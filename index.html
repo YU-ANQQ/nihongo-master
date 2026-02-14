@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#FAFAF8">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>日本語マスター - 日語背誦學習</title>
 <style>
-/* ========== RESET & BASE ========== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 body{font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP","Microsoft JhengHei",sans-serif;
@@ -15,8 +15,6 @@ body{font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP","Microsoft JhengHei"
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
 input{font-family:inherit;border:none;outline:none;background:none;color:inherit}
-
-/* ========== CSS VARIABLES ========== */
 :root{
   --bg-primary:#FAFAF8;--bg-secondary:#F0EDE8;--bg-card:#FFFFFF;
   --text-primary:#2C2C2C;--text-secondary:#6B6B6B;--text-hint:#999;
@@ -37,13 +35,8 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   --shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg:0 8px 24px rgba(0,0,0,0.5);
 }
-
-/* ========== APP SHELL ========== */
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh;
-  max-width:480px;margin:0 auto;position:relative;overflow:hidden;
-  box-shadow:var(--shadow-lg)}
-
-/* ========== PAGES ========== */
+  max-width:480px;margin:0 auto;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
 .page{position:absolute;top:0;left:0;right:0;bottom:0;
   padding:16px 16px calc(var(--nav-height) + 20px + env(safe-area-inset-bottom,0px));
   overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -51,8 +44,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   transition:opacity .3s ease,transform .3s ease;pointer-events:none;z-index:1;
   background:var(--bg-primary)}
 .page.active{opacity:1;transform:translateX(0);pointer-events:auto;z-index:2}
-
-/* ========== BOTTOM NAV ========== */
 .bottom-nav{position:absolute;bottom:0;left:0;right:0;
   height:calc(var(--nav-height) + env(safe-area-inset-bottom,0px));
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -66,8 +57,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .nav-item svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .nav-item .nav-text{font-size:10px;font-weight:500}
 .nav-item .nav-icon-text{font-size:20px;font-weight:700;line-height:24px}
-
-/* ========== COMMON COMPONENTS ========== */
 .section-title{font-size:18px;font-weight:700;margin-bottom:12px;color:var(--text-primary)}
 .card{background:var(--bg-card);border-radius:var(--radius-md);padding:16px;
   box-shadow:var(--shadow-sm);border:1px solid var(--border-color)}
@@ -81,15 +70,12 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .btn-error{background:var(--accent-error);color:#fff}
 .btn-block{width:100%;display:flex}
 .pill-group{display:flex;gap:4px;background:var(--bg-secondary);border-radius:var(--radius-sm);padding:3px}
-.pill{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:500;
-  transition:all .2s ease;color:var(--text-secondary)}
+.pill{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:500;transition:all .2s ease;color:var(--text-secondary)}
 .pill.active{background:var(--bg-card);color:var(--text-primary);box-shadow:var(--shadow-sm)}
 .progress-bar{width:100%;height:8px;background:var(--bg-secondary);border-radius:4px;overflow:hidden}
 .progress-bar .fill{height:100%;border-radius:4px;transition:width .5s ease;background:var(--accent-primary)}
 .badge{display:inline-flex;align-items:center;justify-content:center;
   padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;background:var(--accent-primary);color:#fff}
-
-/* ========== MODAL ========== */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);
   z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;
   opacity:0;pointer-events:none;transition:opacity .3s ease}
@@ -101,18 +87,15 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .modal p{color:var(--text-secondary);margin-bottom:20px;font-size:14px;line-height:1.5}
 .modal-actions{display:flex;gap:8px}
 .modal-actions .btn{flex:1}
-
-/* ========== ANIMATIONS ========== */
 @keyframes correctBounce{0%{transform:scale(1)}30%{transform:scale(1.15)}50%{transform:scale(0.95)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
 @keyframes wrongShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes popIn{0%{transform:scale(0);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes confetti{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(400px) rotate(720deg);opacity:0}}
 .anim-correct{animation:correctBounce .5s ease}
 .anim-wrong{animation:wrongShake .4s ease}
 .anim-fade-in{animation:fadeInUp .4s ease}
 .anim-pop{animation:popIn .3s ease}
-
-/* ========== HOME PAGE ========== */
 .greeting{font-size:22px;font-weight:700;margin-bottom:4px}
 .greeting-sub{font-size:14px;color:var(--text-secondary);margin-bottom:20px}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
@@ -130,8 +113,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .mini-chart .bar.today{opacity:1}
 .chart-labels{display:flex;gap:6px;margin-top:4px}
 .chart-labels span{flex:1;text-align:center;font-size:10px;color:var(--text-hint)}
-
-/* ========== GOJUON PAGE ========== */
 .gojuon-controls{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .gojuon-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px}
 .gojuon-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -143,8 +124,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .gojuon-cell.empty{visibility:hidden}
 .gojuon-row-label{grid-column:1/-1;font-size:13px;font-weight:600;color:var(--text-secondary);
   padding:8px 0 4px;border-bottom:1px solid var(--border-color)}
-
-/* Flashcard */
 .flashcard-container{perspective:1000px;width:100%;max-width:300px;margin:20px auto}
 .flashcard{position:relative;width:100%;height:200px;transition:transform .6s cubic-bezier(0.4,0,0.2,1);
   transform-style:preserve-3d;cursor:pointer}
@@ -157,8 +136,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .flashcard-face .label{font-size:14px;color:var(--text-secondary);margin-top:8px}
 .flashcard-face .romaji-big{font-size:36px;font-weight:600;color:var(--accent-primary)}
 .flashcard-nav{display:flex;gap:12px;justify-content:center;margin-top:16px}
-
-/* Quiz options */
 .quiz-header{text-align:center;margin-bottom:20px}
 .quiz-question{font-size:48px;font-weight:700;text-align:center;margin:20px 0;min-height:70px}
 .quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:320px;margin:0 auto}
@@ -169,9 +146,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .quiz-option.correct{border-color:var(--accent-success);background:rgba(74,124,89,0.15);color:var(--accent-success)}
 .quiz-option.wrong{border-color:var(--accent-error);background:rgba(178,34,52,0.1);color:var(--accent-error)}
 .quiz-feedback{text-align:center;margin-top:16px;font-size:16px;font-weight:600;min-height:24px}
-
-/* ========== VOCAB PAGE ========== */
-.vocab-card-container{perspective:1000px;width:100%;max-width:340px;margin:16px auto}
+.vocab-card-container{perspective:1000px;width:100%;max-width:340px;margin:16px auto;touch-action:pan-y}
 .vocab-card{position:relative;width:100%;min-height:240px;transition:transform .6s cubic-bezier(0.4,0,0.2,1);
   transform-style:preserve-3d;cursor:pointer}
 .vocab-card.flipped{transform:rotateY(180deg)}
@@ -193,7 +168,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .rate-btn.r1{background:var(--accent-error)}
 .rate-btn.r2{background:#E67E22}
 .rate-btn.r3{background:var(--accent-warning)}
-.rate-btn.r5{background:var(--accent-success)}
+.rate-btn.r4{background:var(--accent-success)}
 .vocab-progress{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .vocab-progress .count{font-size:14px;color:var(--text-secondary);white-space:nowrap}
 .vocab-empty{text-align:center;padding:40px 20px;color:var(--text-secondary)}
@@ -202,8 +177,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .vocab-complete .emoji{font-size:64px;margin-bottom:16px}
 .vocab-complete h2{margin-bottom:8px}
 .vocab-complete .stats{color:var(--text-secondary);margin-bottom:20px;line-height:1.8}
-
-/* ========== QUIZ PAGE ========== */
 .quiz-setup{max-width:340px;margin:0 auto}
 .quiz-setup h2{text-align:center;margin-bottom:20px}
 .quiz-type-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
@@ -228,12 +201,9 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .wrong-item .c{color:var(--accent-success);font-size:12px}
 .typing-input{width:100%;max-width:300px;margin:0 auto;display:block;padding:14px;
   font-size:24px;text-align:center;border-radius:var(--radius-md);
-  background:var(--bg-card);border:2px solid var(--border-color);
-  transition:border-color .2s ease}
+  background:var(--bg-card);border:2px solid var(--border-color);transition:border-color .2s ease}
 .typing-input:focus{border-color:var(--accent-primary)}
 .typing-feedback{text-align:center;margin-top:12px;font-size:15px;font-weight:600;min-height:24px}
-
-/* ========== SETTINGS PAGE ========== */
 .settings-group{margin-bottom:24px}
 .settings-group-title{font-size:13px;color:var(--text-secondary);font-weight:600;
   text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
@@ -256,8 +226,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .danger-btn:active{background:var(--accent-error);color:#fff}
 .version-info{text-align:center;color:var(--text-hint);font-size:12px;margin-top:20px}
 .file-input{display:none}
-
-/* ========== SOUND BUTTON ========== */
 .sound-btn{display:inline-flex;align-items:center;justify-content:center;
   width:40px;height:40px;border-radius:50%;background:var(--bg-secondary);
   border:1px solid var(--border-color);cursor:pointer;transition:all .2s ease;
@@ -270,8 +238,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .sound-btn.playing{animation:soundPulse .8s ease}
 .sound-btn-sm{width:32px;height:32px}
 .sound-btn-sm svg{width:16px;height:16px}
-
-/* ========== WEBVIEW BANNER ========== */
 .webview-banner{position:fixed;top:0;left:0;right:0;z-index:300;
   background:var(--accent-primary);color:#fff;padding:10px 16px;
   display:flex;align-items:center;gap:10px;font-size:13px;line-height:1.4;
@@ -282,23 +248,55 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   white-space:nowrap;flex-shrink:0}
 .webview-banner .banner-close{width:28px;height:28px;display:flex;
   align-items:center;justify-content:center;font-size:18px;opacity:0.8;flex-shrink:0}
+/* Achievement */
+.achievement-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.achievement-item{text-align:center;padding:12px 4px;background:var(--bg-card);
+  border-radius:var(--radius-md);border:1px solid var(--border-color);transition:all .3s ease}
+.achievement-item.unlocked{border-color:var(--accent-warning);background:rgba(212,160,23,0.05)}
+.achievement-item.locked{opacity:0.4;filter:grayscale(1)}
+.achievement-item .ach-icon{font-size:32px;margin-bottom:4px}
+.achievement-item .ach-name{font-size:11px;font-weight:600}
+.achievement-item .ach-desc{font-size:9px;color:var(--text-hint);margin-top:2px}
+.achievement-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);
+  z-index:400;background:var(--accent-warning);color:#fff;padding:12px 20px;
+  border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
+  display:flex;align-items:center;gap:10px;font-weight:600;
+  transition:transform .5s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap}
+.achievement-toast.show{transform:translateX(-50%) translateY(0)}
+.achievement-toast .toast-icon{font-size:28px}
+/* Swipe indicator */
+.swipe-hint{text-align:center;font-size:12px;color:var(--text-hint);margin-top:8px}
+/* Error book */
+.error-card{padding:12px;background:var(--bg-card);border:1px solid var(--border-color);
+  border-radius:var(--radius-sm);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.error-card .error-word{font-size:18px;font-weight:700}
+.error-card .error-info{font-size:12px;color:var(--text-secondary)}
+.error-card .error-count{font-size:11px;color:var(--accent-error);font-weight:600}
+/* Install prompt */
+.install-btn{width:100%;padding:14px;border-radius:var(--radius-sm);
+  background:var(--accent-secondary);color:#fff;font-weight:600;font-size:15px;
+  text-align:center;transition:all .2s ease;display:none}
+.install-btn:active{opacity:0.8}
+/* Writing practice */
+.writing-grid{width:200px;height:200px;margin:20px auto;border:2px solid var(--border-color);
+  border-radius:var(--radius-md);position:relative;background:var(--bg-card)}
+.writing-grid::before,.writing-grid::after{content:'';position:absolute;background:var(--border-color)}
+.writing-grid::before{left:50%;top:0;width:1px;height:100%;opacity:0.3}
+.writing-grid::after{top:50%;left:0;width:100%;height:1px;opacity:0.3}
+.writing-char{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:120px;font-weight:300;color:var(--text-primary);transition:opacity .5s ease}
+.writing-char.dim{opacity:0.1}
 </style>
 </head>
 <body>
-<!-- WebView detection banner -->
 <div class="webview-banner" id="webview-banner" style="display:none;flex-wrap:wrap">
   <div class="banner-text">🔇 無法播放聲音，請點右上 ⋮ 選「在瀏覽器中開啟」</div>
   <button class="banner-btn" id="copy-url-btn" onclick="navigator.clipboard.writeText(location.href).then(()=>{this.textContent='✅ 已複製'}).catch(()=>{prompt('複製此網址到瀏覽器開啟：',location.href)})">複製網址</button>
   <button class="banner-close" onclick="document.getElementById('webview-banner').style.display='none';document.querySelectorAll('.page').forEach(p=>p.style.paddingTop='')">✕</button>
 </div>
+<div class="achievement-toast" id="ach-toast"><span class="toast-icon"></span><span class="toast-text"></span></div>
 <div id="app">
-
-<!-- ===== HOME PAGE ===== -->
-<div class="page active" id="page-home">
-  <div id="home-content"></div>
-</div>
-
-<!-- ===== GOJUON PAGE ===== -->
+<div class="page active" id="page-home"><div id="home-content"></div></div>
 <div class="page" id="page-gojuon">
   <div class="section-title">五十音練習</div>
   <div class="gojuon-controls">
@@ -312,38 +310,19 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
     <button class="pill active" data-mode="chart">表格</button>
     <button class="pill" data-mode="flashcard">卡片</button>
     <button class="pill" data-mode="quiz">測驗</button>
+    <button class="pill" data-mode="writing">書寫</button>
   </div>
   <div id="gojuon-content"></div>
 </div>
-
-<!-- ===== VOCAB PAGE ===== -->
-<div class="page" id="page-vocab">
-  <div class="section-title">単語學習</div>
-  <div id="vocab-content"></div>
-</div>
-
-<!-- ===== QUIZ PAGE ===== -->
-<div class="page" id="page-quiz">
-  <div class="section-title">テスト</div>
-  <div id="quiz-content"></div>
-</div>
-
-<!-- ===== SETTINGS PAGE ===== -->
-<div class="page" id="page-settings">
-  <div class="section-title">設定</div>
-  <div id="settings-content"></div>
-</div>
-
-<!-- ===== BOTTOM NAV ===== -->
+<div class="page" id="page-vocab"><div class="section-title">単語學習</div><div id="vocab-content"></div></div>
+<div class="page" id="page-quiz"><div class="section-title">テスト</div><div id="quiz-content"></div></div>
+<div class="page" id="page-settings"><div class="section-title">設定</div><div id="settings-content"></div></div>
 <nav class="bottom-nav" id="bottom-nav">
   <button class="nav-item active" data-page="home">
     <svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9"/><path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg>
     <span class="nav-text">ホーム</span>
   </button>
-  <button class="nav-item" data-page="gojuon">
-    <span class="nav-icon-text">あ</span>
-    <span class="nav-text">五十音</span>
-  </button>
+  <button class="nav-item" data-page="gojuon"><span class="nav-icon-text">あ</span><span class="nav-text">五十音</span></button>
   <button class="nav-item" data-page="vocab">
     <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
     <span class="nav-text">単語</span>
@@ -357,18 +336,10 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
     <span class="nav-text">設定</span>
   </button>
 </nav>
-
-<!-- ===== MODAL ===== -->
 <div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal-box">
-    <h3 id="modal-title"></h3>
-    <p id="modal-msg"></p>
-    <div class="modal-actions" id="modal-actions"></div>
-  </div>
+  <div class="modal" id="modal-box"><h3 id="modal-title"></h3><p id="modal-msg"></p><div class="modal-actions" id="modal-actions"></div></div>
 </div>
-
-</div><!-- end #app -->
-
+</div>
 <script>
 // ================================================================
 // DATA: 五十音
@@ -400,7 +371,7 @@ handakuon:[
 const ALL_KANA=[...GOJUON.seion,...GOJUON.dakuon,...GOJUON.handakuon];
 
 // ================================================================
-// DATA: N5 單字 (80個)
+// DATA: N5 單字 (120個)
 // ================================================================
 const VOCAB=[
 // 日常動詞 15
@@ -490,70 +461,107 @@ const VOCAB=[
 {id:77,w:"千",rd:"せん",ro:"sen",m:"千",pos:"數詞",cat:"num",ex:{ja:"千円札。",rd:"せんえんさつ。",zh:"千圓鈔票。"}},
 {id:78,w:"万",rd:"まん",ro:"man",m:"萬",pos:"數詞",cat:"num",ex:{ja:"一万円。",rd:"いちまんえん。",zh:"一萬日圓。"}},
 {id:79,w:"円",rd:"えん",ro:"en",m:"日圓",pos:"名詞",cat:"num",ex:{ja:"五百円です。",rd:"ごひゃくえんです。",zh:"五百日圓。"}},
-{id:80,w:"個",rd:"こ",ro:"ko",m:"個(量詞)",pos:"量詞",cat:"num",ex:{ja:"三個ください。",rd:"さんこください。",zh:"請給我三個。"}}
+{id:80,w:"個",rd:"こ",ro:"ko",m:"個(量詞)",pos:"量詞",cat:"num",ex:{ja:"三個ください。",rd:"さんこください。",zh:"請給我三個。"}},
+// ===== NEW: 食べ物 10 =====
+{id:81,w:"ご飯",rd:"ごはん",ro:"gohan",m:"飯;餐",pos:"名詞",cat:"food",ex:{ja:"ご飯を食べましょう。",rd:"ごはんをたべましょう。",zh:"一起吃飯吧。"}},
+{id:82,w:"肉",rd:"にく",ro:"niku",m:"肉",pos:"名詞",cat:"food",ex:{ja:"肉が好きです。",rd:"にくがすきです。",zh:"喜歡吃肉。"}},
+{id:83,w:"魚",rd:"さかな",ro:"sakana",m:"魚",pos:"名詞",cat:"food",ex:{ja:"魚を焼く。",rd:"さかなをやく。",zh:"烤魚。"}},
+{id:84,w:"野菜",rd:"やさい",ro:"yasai",m:"蔬菜",pos:"名詞",cat:"food",ex:{ja:"野菜をたくさん食べる。",rd:"やさいをたくさんたべる。",zh:"多吃蔬菜。"}},
+{id:85,w:"果物",rd:"くだもの",ro:"kudamono",m:"水果",pos:"名詞",cat:"food",ex:{ja:"果物が美味しい。",rd:"くだものがおいしい。",zh:"水果好吃。"}},
+{id:86,w:"パン",rd:"ぱん",ro:"pan",m:"麵包",pos:"名詞",cat:"food",ex:{ja:"朝パンを食べる。",rd:"あさぱんをたべる。",zh:"早上吃麵包。"}},
+{id:87,w:"卵",rd:"たまご",ro:"tamago",m:"蛋",pos:"名詞",cat:"food",ex:{ja:"卵を割る。",rd:"たまごをわる。",zh:"打蛋。"}},
+{id:88,w:"牛乳",rd:"ぎゅうにゅう",ro:"gyuunyuu",m:"牛奶",pos:"名詞",cat:"food",ex:{ja:"牛乳を飲む。",rd:"ぎゅうにゅうをのむ。",zh:"喝牛奶。"}},
+{id:89,w:"お茶",rd:"おちゃ",ro:"ocha",m:"茶",pos:"名詞",cat:"food",ex:{ja:"お茶をどうぞ。",rd:"おちゃをどうぞ。",zh:"請喝茶。"}},
+{id:90,w:"コーヒー",rd:"こーひー",ro:"koohii",m:"咖啡",pos:"名詞",cat:"food",ex:{ja:"コーヒーを一杯ください。",rd:"こーひーをいっぱいください。",zh:"請給我一杯咖啡。"}},
+// ===== NEW: 色 5 =====
+{id:91,w:"赤",rd:"あか",ro:"aka",m:"紅色",pos:"名詞",cat:"color",ex:{ja:"赤い花が咲いた。",rd:"あかいはながさいた。",zh:"紅色的花開了。"}},
+{id:92,w:"青",rd:"あお",ro:"ao",m:"藍色",pos:"名詞",cat:"color",ex:{ja:"空は青い。",rd:"そらはあおい。",zh:"天空是藍色的。"}},
+{id:93,w:"白",rd:"しろ",ro:"shiro",m:"白色",pos:"名詞",cat:"color",ex:{ja:"白い雲が見える。",rd:"しろいくもがみえる。",zh:"看得到白色的雲。"}},
+{id:94,w:"黒",rd:"くろ",ro:"kuro",m:"黑色",pos:"名詞",cat:"color",ex:{ja:"黒い猫がいる。",rd:"くろいねこがいる。",zh:"有一隻黑貓。"}},
+{id:95,w:"黄色",rd:"きいろ",ro:"kiiro",m:"黃色",pos:"名詞",cat:"color",ex:{ja:"黄色い花が好き。",rd:"きいろいはながすき。",zh:"喜歡黃色的花。"}},
+// ===== NEW: 自然 5 =====
+{id:96,w:"山",rd:"やま",ro:"yama",m:"山",pos:"名詞",cat:"nature",ex:{ja:"山に登る。",rd:"やまにのぼる。",zh:"爬山。"}},
+{id:97,w:"海",rd:"うみ",ro:"umi",m:"海",pos:"名詞",cat:"nature",ex:{ja:"海で泳ぐ。",rd:"うみでおよぐ。",zh:"在海裡游泳。"}},
+{id:98,w:"川",rd:"かわ",ro:"kawa",m:"河",pos:"名詞",cat:"nature",ex:{ja:"川で魚を釣る。",rd:"かわでさかなをつる。",zh:"在河裡釣魚。"}},
+{id:99,w:"花",rd:"はな",ro:"hana",m:"花",pos:"名詞",cat:"nature",ex:{ja:"花が咲いている。",rd:"はながさいている。",zh:"花正在開。"}},
+{id:100,w:"空",rd:"そら",ro:"sora",m:"天空",pos:"名詞",cat:"nature",ex:{ja:"空がきれいだ。",rd:"そらがきれいだ。",zh:"天空很美。"}},
+// ===== NEW: 体 5 =====
+{id:101,w:"目",rd:"め",ro:"me",m:"眼睛",pos:"名詞",cat:"body",ex:{ja:"目が大きい。",rd:"めがおおきい。",zh:"眼睛很大。"}},
+{id:102,w:"耳",rd:"みみ",ro:"mimi",m:"耳朵",pos:"名詞",cat:"body",ex:{ja:"耳が痛い。",rd:"みみがいたい。",zh:"耳朵痛。"}},
+{id:103,w:"口",rd:"くち",ro:"kuchi",m:"嘴巴",pos:"名詞",cat:"body",ex:{ja:"口を開ける。",rd:"くちをあける。",zh:"張開嘴巴。"}},
+{id:104,w:"手",rd:"て",ro:"te",m:"手",pos:"名詞",cat:"body",ex:{ja:"手を洗う。",rd:"てをあらう。",zh:"洗手。"}},
+{id:105,w:"足",rd:"あし",ro:"ashi",m:"腳",pos:"名詞",cat:"body",ex:{ja:"足が速い。",rd:"あしがはやい。",zh:"跑得快。"}},
+// ===== NEW: 動詞2 10 =====
+{id:106,w:"作る",rd:"つくる",ro:"tsukuru",m:"製作",pos:"動詞I",cat:"verb2",ex:{ja:"料理を作る。",rd:"りょうりをつくる。",zh:"做料理。"}},
+{id:107,w:"使う",rd:"つかう",ro:"tsukau",m:"使用",pos:"動詞I",cat:"verb2",ex:{ja:"パソコンを使う。",rd:"ぱそこんをつかう。",zh:"使用電腦。"}},
+{id:108,w:"待つ",rd:"まつ",ro:"matsu",m:"等待",pos:"動詞I",cat:"verb2",ex:{ja:"ここで待つ。",rd:"ここでまつ。",zh:"在這裡等。"}},
+{id:109,w:"持つ",rd:"もつ",ro:"motsu",m:"拿;持有",pos:"動詞I",cat:"verb2",ex:{ja:"荷物を持つ。",rd:"にもつをもつ。",zh:"拿行李。"}},
+{id:110,w:"知る",rd:"しる",ro:"shiru",m:"知道",pos:"動詞I",cat:"verb2",ex:{ja:"彼を知っている。",rd:"かれをしっている。",zh:"認識他。"}},
+{id:111,w:"住む",rd:"すむ",ro:"sumu",m:"住",pos:"動詞I",cat:"verb2",ex:{ja:"東京に住む。",rd:"とうきょうにすむ。",zh:"住在東京。"}},
+{id:112,w:"働く",rd:"はたらく",ro:"hataraku",m:"工作",pos:"動詞I",cat:"verb2",ex:{ja:"会社で働く。",rd:"かいしゃではたらく。",zh:"在公司工作。"}},
+{id:113,w:"遊ぶ",rd:"あそぶ",ro:"asobu",m:"玩",pos:"動詞I",cat:"verb2",ex:{ja:"友達と遊ぶ。",rd:"ともだちとあそぶ。",zh:"和朋友玩。"}},
+{id:114,w:"泳ぐ",rd:"およぐ",ro:"oyogu",m:"游泳",pos:"動詞I",cat:"verb2",ex:{ja:"プールで泳ぐ。",rd:"ぷーるでおよぐ。",zh:"在游泳池游泳。"}},
+{id:115,w:"走る",rd:"はしる",ro:"hashiru",m:"跑",pos:"動詞I",cat:"verb2",ex:{ja:"毎朝走る。",rd:"まいあさはしる。",zh:"每天早上跑步。"}},
+// ===== NEW: 副詞 5 =====
+{id:116,w:"とても",rd:"とても",ro:"totemo",m:"非常",pos:"副詞",cat:"adverb",ex:{ja:"とても美味しい。",rd:"とてもおいしい。",zh:"非常好吃。"}},
+{id:117,w:"もう",rd:"もう",ro:"mou",m:"已經",pos:"副詞",cat:"adverb",ex:{ja:"もう食べました。",rd:"もうたべました。",zh:"已經吃了。"}},
+{id:118,w:"まだ",rd:"まだ",ro:"mada",m:"還;尚未",pos:"副詞",cat:"adverb",ex:{ja:"まだ終わっていない。",rd:"まだおわっていない。",zh:"還沒結束。"}},
+{id:119,w:"いつも",rd:"いつも",ro:"itsumo",m:"總是",pos:"副詞",cat:"adverb",ex:{ja:"いつも笑っている。",rd:"いつもわらっている。",zh:"總是在笑。"}},
+{id:120,w:"たくさん",rd:"たくさん",ro:"takusan",m:"很多",pos:"副詞",cat:"adverb",ex:{ja:"たくさん食べた。",rd:"たくさんたべた。",zh:"吃了很多。"}}
 ];
 
-// ================================================================
-// DATA: 鼓勵語句
-// ================================================================
 const ENCOURAGE={
 correct:["すごい！(好厲害！)","正解！よくできました！","完璧！(完美！)","その調子！(就是這樣！)","素晴らしい！(太棒了！)","天才だ！(你是天才！)"],
-wrong:["大丈夫！もう一回！(沒關係！)","惜しい！(好可惜！差一點！)","間違いは学びの始まり(犯錯是學習的開始)","ドンマイ！(Don't mind!)","次は絶対できる！(下次一定行！)"],
+wrong:["大丈夫！もう一回！(沒關係！)","惜しい！(好可惜！)","間違いは学びの始まり(犯錯是學習的開始)","ドンマイ！(Don't mind!)","次は絶対できる！(下次一定行！)"],
 completion:["今日もお疲れ様！(今天也辛苦了！)","毎日の努力が大切！(每天的努力都很重要！)","一歩一歩、前進しよう！(一步一步向前！)","継続は力なり！(持續就是力量！)"],
 streak:{3:"3日連続！いい感じ！",7:"一週間連続！すごい！",14:"二週間！本当に偉い！",30:"一ヶ月！あなたは本物だ！"}
 };
 
 // ================================================================
-// CORE: StorageManager
+// CORE: FSRS-4.5 Spaced Repetition Engine
 // ================================================================
-const Store={
-KEY:"nihongo_app_v1",
-_cache:null,
-_timer:null,
-load(){
-  if(this._cache)return this._cache;
-  try{const r=localStorage.getItem(this.KEY);if(r){this._cache=JSON.parse(r);if(this._checkToday())this.save();return this._cache}}catch(e){}
-  this._cache=this._default();this.save();return this._cache;
-},
-save(d){if(d)this._cache=d;if(!this._cache)return;this._cache.lastActiveAt=new Date().toISOString();
-  try{localStorage.setItem(this.KEY,JSON.stringify(this._cache))}catch(e){if(this._cache.quizHistory.length>30)this._cache.quizHistory=this._cache.quizHistory.slice(-30);localStorage.setItem(this.KEY,JSON.stringify(this._cache))}},
-debounce(){clearTimeout(this._timer);this._timer=setTimeout(()=>this.save(),300)},
-_checkToday(){const d=this._cache;const t=today();if(d.todayStats.date!==t){d.todayStats={date:t,newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0};return true}return false},
-_default(){return{version:"1.0.0",createdAt:new Date().toISOString(),lastActiveAt:new Date().toISOString(),
-  settings:{theme:"auto",gojuonMode:"hiragana",dailyGoal:20,soundEnabled:true},
-  streak:{current:0,longest:0,lastStudyDate:null,history:[]},
-  gojuon:{},vocab:{},quizHistory:[],
-  todayStats:{date:today(),newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0}}},
-updateStreak(){const d=this.load();const t=today();const y=yesterday();
-  if(d.streak.lastStudyDate===t)return;
-  if(d.streak.lastStudyDate===y){d.streak.current++}else if(d.streak.lastStudyDate!==t){d.streak.current=1}
-  d.streak.longest=Math.max(d.streak.longest,d.streak.current);d.streak.lastStudyDate=t;
-  const h=d.streak.history;const last=h[h.length-1];if(last&&last.date===t){last.count++}else{h.push({date:t,count:1});if(h.length>60)h.shift()}
-  this.save()},
-exportData(){const b=new Blob([JSON.stringify(this.load(),null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="nihongo_backup_"+today()+".json";a.click();URL.revokeObjectURL(a.href)},
-importData(json){try{const d=JSON.parse(json);if(d.version){this._cache=d;this.save();return true}}catch(e){}return false},
-reset(){this._cache=this._default();this.save()}
-};
-
 function today(){return new Date().toISOString().split("T")[0]}
 function yesterday(){const d=new Date();d.setDate(d.getDate()-1);return d.toISOString().split("T")[0]}
+function daysBetween(a,b){return Math.round((new Date(b)-new Date(a))/86400000)}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 
-// ================================================================
-// CORE: SM-2 Engine
-// ================================================================
-const SM2={
-calc(card,q){
-  let{repetitions:rep,easeFactor:ef,interval:iv}=card;
-  if(q>=3){if(rep===0)iv=1;else if(rep===1)iv=3;else iv=Math.round(iv*ef);rep++}
-  else{rep=0;iv=1}
-  ef=ef+(0.1-(5-q)*(0.08+(5-q)*0.02));if(ef<1.3)ef=1.3;
-  const nx=new Date();nx.setDate(nx.getDate()+iv);
-  return{repetitions:rep,easeFactor:Math.round(ef*100)/100,interval:iv,nextReview:nx.toISOString().split("T")[0],lastReview:today(),quality:q}
-},
-newCard(){return{repetitions:0,easeFactor:2.5,interval:0,nextReview:today(),lastReview:null,quality:0,totalReviews:0,correctCount:0,wrongCount:0}},
+const FSRS={
+w:[0.40255,1.18385,3.173,15.69105,7.1949,0.5345,1.4604,0.0046,1.54575,0.1192,1.01925,1.9395,0.11,0.29605,2.2698,0.2315,2.9898,0.51655,0.6621],
+DECAY:-0.5,
+get FACTOR(){return Math.pow(0.9,1/this.DECAY)-1},
+requestRetention:0.9,
+maximumInterval:36500,
+forgettingCurve(elapsed,s){return Math.pow(1+this.FACTOR*elapsed/s,this.DECAY)},
+initStability(r){return Math.max(this.w[r-1],0.1)},
+initDifficulty(r){return this.constrainD(this.w[4]-Math.exp(this.w[5]*(r-1))+1)},
+constrainD(d){return Math.min(Math.max(d,1),10)},
+nextDifficulty(d,r){
+  const dd=-this.w[6]*(r-3);const ld=dd*(10-d)/9;const nd=d+ld;
+  return this.constrainD(this.w[7]*this.initDifficulty(4)+(1-this.w[7])*nd)},
+nextRecallStability(d,s,r,rating){
+  const hp=rating===2?this.w[15]:1;const eb=rating===4?this.w[16]:1;
+  return s*(1+Math.exp(this.w[8])*(11-d)*Math.pow(s,-this.w[9])*(Math.exp((1-r)*this.w[10])-1)*hp*eb)},
+nextForgetStability(d,s,r){
+  return Math.min(this.w[11]*Math.pow(d,-this.w[12])*(Math.pow(s+1,this.w[13])-1)*Math.exp((1-r)*this.w[14]),s/Math.exp(this.w[17]*this.w[18]))},
+nextInterval(s){
+  const iv=s/this.FACTOR*(Math.pow(this.requestRetention,1/this.DECAY)-1);
+  return Math.min(Math.max(Math.round(iv),1),this.maximumInterval)},
+newCard(){return{difficulty:0,stability:0,reps:0,nextReview:today(),lastReview:null,totalReviews:0,correctCount:0,wrongCount:0}},
+// rating: 1=Again, 2=Hard, 3=Good, 4=Easy
+review(card,rating){
+  const now=today();const elapsed=card.lastReview?Math.max(0,daysBetween(card.lastReview,now)):0;
+  let d,s;
+  if(card.reps===0){d=this.initDifficulty(rating);s=this.initStability(rating)}
+  else{d=this.nextDifficulty(card.difficulty,rating);
+    const r=this.forgettingCurve(elapsed,card.stability);
+    s=rating>=2?this.nextRecallStability(d,card.stability,r,rating):this.nextForgetStability(d,card.stability,r)}
+  const iv=this.nextInterval(s);const nx=new Date();nx.setDate(nx.getDate()+iv);
+  return{difficulty:Math.round(d*100)/100,stability:Math.round(s*100)/100,
+    reps:rating>=2?card.reps+1:0,interval:iv,nextReview:nx.toISOString().split("T")[0],
+    lastReview:now,totalReviews:(card.totalReviews||0)+1,
+    correctCount:(card.correctCount||0)+(rating>=2?1:0),
+    wrongCount:(card.wrongCount||0)+(rating<2?1:0)}},
 getDue(){const d=Store.load();const t=today();const due=[];
   for(const[id,p]of Object.entries(d.vocab)){if(p.nextReview<=t)due.push({id:+id,...p})}
   due.sort((a,b)=>a.nextReview.localeCompare(b.nextReview));return due},
@@ -562,69 +570,134 @@ getNew(limit=5){const d=Store.load();const learned=new Set(Object.keys(d.vocab))
 };
 
 // ================================================================
-// CORE: TTS (Text-to-Speech) Engine
+// CORE: Achievements
 // ================================================================
-const TTS={
-_audio:null,
-_unlocked:false,
-get enabled(){return Store.load().settings.soundEnabled},
-
-init(){
-  // Create reusable Audio element
-  this._audio=new Audio();
-  this._audio.volume=1;
-
-  // Unlock audio on first user touch/click (mobile requirement)
-  const unlock=()=>{
-    if(this._unlocked)return;
-    this._audio.play().catch(()=>{});
-    this._audio.pause();
-    this._audio.currentTime=0;
-    this._unlocked=true;
-  };
-  document.addEventListener("touchstart",unlock,{passive:true});
-  document.addEventListener("click",unlock);
-},
-
-speak(text){
-  if(!this.enabled||!text)return;
-  try{
-    // Stop any current playback
-    if(this._audio){this._audio.pause();this._audio.currentTime=0}
-
-    // Use Google Translate TTS endpoint (most reliable on mobile)
-    const url="https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ja&q="+encodeURIComponent(text);
-    this._audio.src=url;
-    this._audio.play().catch(e=>{
-      // Fallback to Web Speech API if Google TTS fails
-      this._speakFallback(text);
-    });
-  }catch(e){
-    this._speakFallback(text);
-  }
-},
-
-// Fallback: Web Speech API
-_speakFallback(text){
-  if(!window.speechSynthesis)return;
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang="ja-JP";u.rate=0.8;u.volume=1;
-  speechSynthesis.speak(u);
-},
-
-playBtn(text,btnEl){
-  if(!this.enabled)return;
-  this.speak(text);
-  if(btnEl){btnEl.classList.add("playing");setTimeout(()=>btnEl.classList.remove("playing"),800)}
-},
-speakerSVG:'<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>',
-speakerSVGsm:'<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>',
-btn(text,sm){return`<button class="sound-btn${sm?" sound-btn-sm":""}" onclick="event.stopPropagation();TTS.playBtn('${text.replace(/'/g,"\\'")}',this)">${sm?this.speakerSVGsm:this.speakerSVG}</button>`},
+const Achievements={
+list:[
+  {id:'first_word',icon:'🌱',name:'初心者',desc:'學會第一個單字',check:d=>Object.keys(d.vocab).length>=1},
+  {id:'ten_words',icon:'📚',name:'小書蟲',desc:'學會10個單字',check:d=>Object.keys(d.vocab).length>=10},
+  {id:'fifty_words',icon:'🎓',name:'勤學者',desc:'學會50個單字',check:d=>Object.keys(d.vocab).length>=50},
+  {id:'hundred_words',icon:'📖',name:'百詞斬',desc:'學會100個單字',check:d=>Object.keys(d.vocab).length>=100},
+  {id:'all_words',icon:'👑',name:'單字王',desc:'學會全部單字',check:d=>Object.keys(d.vocab).length>=VOCAB.length},
+  {id:'streak3',icon:'🔥',name:'三日坊主突破',desc:'連續學習3天',check:d=>d.streak.current>=3},
+  {id:'streak7',icon:'⭐',name:'一週達人',desc:'連續學習7天',check:d=>d.streak.current>=7},
+  {id:'streak30',icon:'💎',name:'月間勇者',desc:'連續學習30天',check:d=>d.streak.current>=30},
+  {id:'perfect_quiz',icon:'💯',name:'完美答題',desc:'測驗得到100%',check:d=>d.quizHistory.some(q=>q.correctAnswers===q.totalQuestions&&q.totalQuestions>=5)},
+  {id:'all_kana',icon:'🏯',name:'五十音達人',desc:'掌握全部假名',check:d=>Object.values(d.gojuon).filter(g=>g.mastered).length>=ALL_KANA.length},
+  {id:'night_owl',icon:'🦉',name:'夜貓學霸',desc:'晚上11點後學習',check:()=>new Date().getHours()>=23},
+  {id:'early_bird',icon:'🐦',name:'早起鳥',desc:'早上6點前學習',check:()=>new Date().getHours()<6},
+  {id:'quiz_master',icon:'🏆',name:'測驗大師',desc:'完成20次測驗',check:d=>d.quizHistory.length>=20},
+],
+check(d){
+  if(!d.achievements)d.achievements=[];
+  const newOnes=[];
+  this.list.forEach(a=>{if(!d.achievements.includes(a.id)&&a.check(d)){d.achievements.push(a.id);newOnes.push(a)}});
+  if(newOnes.length){Store.save();newOnes.forEach((a,i)=>setTimeout(()=>this.showToast(a),i*2500))}
+  return newOnes},
+showToast(a){
+  const t=document.getElementById('ach-toast');
+  t.querySelector('.toast-icon').textContent=a.icon;
+  t.querySelector('.toast-text').textContent=`解鎖成就：${a.name}！`;
+  t.classList.add('show');
+  if(navigator.vibrate)navigator.vibrate([100,50,100]);
+  setTimeout(()=>t.classList.remove('show'),2200)}
 };
 
 // ================================================================
-// CORE: Theme Manager
+// CORE: StorageManager (with SM-2 migration)
+// ================================================================
+const Store={
+KEY:"nihongo_app_v2",
+OLD_KEY:"nihongo_app_v1",
+_cache:null,_timer:null,
+load(){
+  if(this._cache)return this._cache;
+  try{
+    let r=localStorage.getItem(this.KEY);
+    if(r){this._cache=JSON.parse(r);if(this._checkToday())this.save();return this._cache}
+    // Try migrate from v1
+    r=localStorage.getItem(this.OLD_KEY);
+    if(r){this._cache=this._migrate(JSON.parse(r));this.save();return this._cache}
+  }catch(e){}
+  this._cache=this._default();this.save();return this._cache},
+save(d){if(d)this._cache=d;if(!this._cache)return;this._cache.lastActiveAt=new Date().toISOString();
+  try{localStorage.setItem(this.KEY,JSON.stringify(this._cache))}catch(e){
+    if(this._cache.quizHistory.length>30)this._cache.quizHistory=this._cache.quizHistory.slice(-30);
+    localStorage.setItem(this.KEY,JSON.stringify(this._cache))}},
+debounce(){clearTimeout(this._timer);this._timer=setTimeout(()=>this.save(),300)},
+_checkToday(){const d=this._cache;const t=today();if(d.todayStats.date!==t){d.todayStats={date:t,newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0};return true}return false},
+_migrate(old){
+  // Migrate SM-2 vocab data to FSRS format
+  const d=this._default();
+  d.gojuon=old.gojuon||{};
+  d.quizHistory=old.quizHistory||[];
+  d.streak=old.streak||d.streak;
+  d.settings={...d.settings,...(old.settings||{})};
+  d.achievements=old.achievements||[];
+  if(old.vocab){
+    for(const[id,card]of Object.entries(old.vocab)){
+      if(card.easeFactor!==undefined){
+        d.vocab[id]={difficulty:Math.round((6-(card.easeFactor||2.5))*2*100)/100,
+          stability:card.interval||1,reps:card.repetitions||0,
+          nextReview:card.nextReview||today(),lastReview:card.lastReview||null,
+          totalReviews:card.totalReviews||0,correctCount:card.correctCount||0,wrongCount:card.wrongCount||0};
+      }else{d.vocab[id]=card}
+    }
+  }
+  return d},
+_default(){return{version:"2.0.0",createdAt:new Date().toISOString(),lastActiveAt:new Date().toISOString(),
+  settings:{theme:"auto",gojuonMode:"hiragana",dailyGoal:20,soundEnabled:true},
+  streak:{current:0,longest:0,lastStudyDate:null,history:[]},
+  gojuon:{},vocab:{},quizHistory:[],achievements:[],errorBook:[],
+  todayStats:{date:today(),newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0}}},
+updateStreak(){const d=this.load();const t=today();const y=yesterday();
+  if(d.streak.lastStudyDate===t)return;
+  if(d.streak.lastStudyDate===y){d.streak.current++}else if(d.streak.lastStudyDate!==t){d.streak.current=1}
+  d.streak.longest=Math.max(d.streak.longest,d.streak.current);d.streak.lastStudyDate=t;
+  const h=d.streak.history;const last=h[h.length-1];if(last&&last.date===t){last.count++}else{h.push({date:t,count:1});if(h.length>60)h.shift()}
+  this.save();Achievements.check(d)},
+addError(vocabId,userAns,correctAns){
+  const d=this.load();if(!d.errorBook)d.errorBook=[];
+  const exist=d.errorBook.find(e=>e.vocabId===vocabId);
+  if(exist){exist.count++;exist.lastWrong=today()}
+  else{d.errorBook.push({vocabId,count:1,lastWrong:today(),userAns,correctAns})}
+  if(d.errorBook.length>200)d.errorBook=d.errorBook.slice(-200);
+  this.save()},
+exportData(){const b=new Blob([JSON.stringify(this.load(),null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="nihongo_backup_"+today()+".json";a.click();URL.revokeObjectURL(a.href)},
+importData(json){try{const d=JSON.parse(json);if(d.version){this._cache=d;this.save();return true}}catch(e){}return false},
+reset(){this._cache=this._default();this.save()}
+};
+
+// ================================================================
+// CORE: TTS Engine
+// ================================================================
+const TTS={
+_audio:null,_unlocked:false,
+get enabled(){return Store.load().settings.soundEnabled},
+init(){
+  this._audio=new Audio();this._audio.volume=1;
+  const unlock=()=>{if(this._unlocked)return;
+    this._audio.play().catch(()=>{});this._audio.pause();this._audio.currentTime=0;this._unlocked=true};
+  document.addEventListener("touchstart",unlock,{passive:true});
+  document.addEventListener("click",unlock)},
+speak(text){
+  if(!this.enabled||!text)return;
+  try{if(this._audio){this._audio.pause();this._audio.currentTime=0}
+    const url="https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ja&q="+encodeURIComponent(text);
+    this._audio.src=url;this._audio.play().catch(e=>{this._fallback(text)})
+  }catch(e){this._fallback(text)}},
+_fallback(text){if(!window.speechSynthesis)return;speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);u.lang="ja-JP";u.rate=0.8;u.volume=1;speechSynthesis.speak(u)},
+playBtn(text,el){if(!this.enabled)return;this.speak(text);
+  if(el){el.classList.add("playing");setTimeout(()=>el.classList.remove("playing"),800)}},
+speakerSVG:'<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>',
+speakerSVGsm:'<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>',
+btn(text,sm){return`<button class="sound-btn${sm?" sound-btn-sm":""}" onclick="event.stopPropagation();TTS.playBtn('${text.replace(/'/g,"\\'")}',this)">${sm?this.speakerSVGsm:this.speakerSVG}</button>`}
+};
+
+// ================================================================
+// CORE: Theme & Router
 // ================================================================
 const Theme={
 init(){const s=Store.load().settings.theme;
@@ -636,9 +709,6 @@ apply(t){document.documentElement.setAttribute("data-theme",t);
 set(t){const d=Store.load();d.settings.theme=t;Store.save();if(t==="auto"){const m=window.matchMedia("(prefers-color-scheme:dark)");this.apply(m.matches?"dark":"light")}else this.apply(t)}
 };
 
-// ================================================================
-// CORE: Router
-// ================================================================
 const Router={
 current:"home",
 pages:["home","gojuon","vocab","quiz","settings"],
@@ -654,27 +724,41 @@ _load(n){switch(n){case"home":Home.render();break;case"gojuon":Gojuon.render();b
 };
 
 // ================================================================
+// CORE: Swipe Handler
+// ================================================================
+const Swipe={
+attach(el,opts){
+  let sx,sy,dx,dy;
+  el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;dx=0;dy=0},{passive:true});
+  el.addEventListener('touchmove',e=>{dx=e.touches[0].clientX-sx;dy=e.touches[0].clientY-sy},{passive:true});
+  el.addEventListener('touchend',()=>{
+    const adx=Math.abs(dx),ady=Math.abs(dy);
+    if(adx<40&&ady<40)return;
+    if(adx>ady){if(dx>0&&opts.right)opts.right();else if(dx<0&&opts.left)opts.left()}
+    else{if(dy<0&&opts.up)opts.up();else if(dy>0&&opts.down)opts.down()}
+  },{passive:true})}
+};
+
+// ================================================================
 // MODULE: Home Dashboard
 // ================================================================
 const Home={
 render(){
   const d=Store.load();const h=new Date().getHours();
   const gr=h<12?"おはようございます":h<18?"こんにちは":"こんばんは";
-  const due=SM2.getDue().length;const nw=SM2.getNew(d.settings.dailyGoal).length;
+  const due=FSRS.getDue().length;const nw=FSRS.getNew(d.settings.dailyGoal).length;
   const learned=Object.keys(d.vocab).length;const total=VOCAB.length;
-  const mastered=Object.values(d.vocab).filter(v=>v.repetitions>=3&&v.easeFactor>=2.0).length;
+  const mastered=Object.values(d.vocab).filter(v=>v.reps>=3&&v.difficulty<5).length;
   const rate=learned>0?Math.round(mastered/learned*100):0;
   const ts=d.todayStats;const prog=ts.wordsReviewed+ts.newWordsLearned;
   const goal=d.settings.dailyGoal;const pct=Math.min(100,Math.round(prog/goal*100));
-
-  // 最近7天圖表
   const hist=d.streak.history.slice(-7);while(hist.length<7)hist.unshift({date:"",count:0});
   const maxC=Math.max(...hist.map(h=>h.count),1);
   const days=["日","一","二","三","四","五","六"];
-
   let streakMsg="";
   for(const[k,v]of Object.entries(ENCOURAGE.streak).reverse()){if(d.streak.current>=+k){streakMsg=v;break}}
-
+  // Error book count
+  const errCount=(d.errorBook||[]).length;
   document.getElementById("home-content").innerHTML=`
     <div class="greeting">${gr}</div>
     <div class="greeting-sub">${d.streak.current>0?`連續學習第 ${d.streak.current} 天 🔥`:"開始你的日語學習之旅吧！"}</div>
@@ -696,64 +780,88 @@ render(){
       <div class="today-chip"><strong>${nw}</strong>新單字</div>
     </div>
     <button class="btn btn-primary btn-block" style="margin:16px 0" onclick="Router.go('vocab')">開始今日學習</button>
+    ${errCount?`<button class="btn btn-secondary btn-block" style="margin-bottom:16px" onclick="ErrorBook.show()">📕 錯題本 (${errCount})</button>`:''}
     <div class="card">
       <div style="font-size:13px;font-weight:600;margin-bottom:8px">最近 7 天</div>
       <div class="mini-chart">${hist.map((h,i)=>`<div class="bar${i===hist.length-1?" today":""}" style="height:${Math.max(8,h.count/maxC*100)}%"></div>`).join("")}</div>
       <div class="chart-labels">${hist.map(h=>{if(!h.date)return"<span>-</span>";const dd=new Date(h.date);return`<span>${days[dd.getDay()]}</span>`}).join("")}</div>
-    </div>`;
+    </div>
+    <div style="font-size:12px;color:var(--text-hint);text-align:center;margin-top:12px">FSRS-4.5 智慧間隔重複 · ${total} 個 N5 單字</div>`;
 }};
 
 // ================================================================
-// MODULE: Gojuon
+// MODULE: Error Book (錯題本)
+// ================================================================
+const ErrorBook={
+show(){
+  const el=document.getElementById("home-content");
+  const d=Store.load();const errors=(d.errorBook||[]).sort((a,b)=>b.count-a.count);
+  if(!errors.length){el.innerHTML=`<div class="vocab-empty"><div class="emoji">✅</div><h3>沒有錯題！</h3><p style="margin-top:8px">繼續加油！</p><button class="btn btn-secondary" style="margin-top:16px" onclick="Home.render()">← 返回</button></div>`;return}
+  let html=`<div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+    <button class="btn btn-secondary" onclick="Home.render()">← 返回</button>
+    <button class="btn btn-primary" onclick="ErrorBook.review()">複習錯題</button>
+  </div><div class="section-title">📕 錯題本</div>`;
+  errors.forEach(e=>{
+    const v=VOCAB.find(x=>x.id===e.vocabId);if(!v)return;
+    html+=`<div class="error-card">
+      <div style="flex:1"><div class="error-word">${v.w} <span style="font-size:14px;color:var(--text-secondary)">${v.rd}</span></div>
+      <div class="error-info">${v.m} · ${v.pos}</div></div>
+      <div class="error-count">錯${e.count}次</div>
+      ${TTS.btn(v.rd,true)}
+    </div>`});
+  el.innerHTML=html},
+review(){
+  const d=Store.load();const errors=(d.errorBook||[]).slice(0,10);
+  if(!errors.length)return;
+  VocabMod.deck=errors.map(e=>{const v=VOCAB.find(x=>x.id===e.vocabId);
+    return v?{vocab:v,card:d.vocab[String(v.id)]||FSRS.newCard()}:null}).filter(Boolean);
+  VocabMod.idx=0;VocabMod.flipped=false;VocabMod.session={correct:0,wrong:0,total:VocabMod.deck.length};
+  Router.go('vocab');VocabMod.render()}
+};
+
+// ================================================================
+// MODULE: Gojuon (with writing mode)
 // ================================================================
 const Gojuon={
 script:"hiragana",mode:"chart",deck:[],idx:0,flipped:false,quizItem:null,quizOpts:[],answered:false,
+writingPhase:"show",writingTimer:null,
 render(){
   const el=document.getElementById("gojuon-content");
   if(this.mode==="chart")this.renderChart(el);
   else if(this.mode==="flashcard")this.renderFlashcard(el);
+  else if(this.mode==="writing")this.renderWriting(el);
   else this.renderQuiz(el)},
 renderChart(el){
   const d=Store.load();const sc=this.script;
-  // Organized rows
   const rows=[{label:"清音 (基本)",data:GOJUON.seion},{label:"濁音",data:GOJUON.dakuon},{label:"半濁音",data:GOJUON.handakuon}];
   let html="";
   rows.forEach(section=>{
     html+=`<div class="gojuon-row-label">${section.label}</div>`;
     const byRow={};section.data.forEach(k=>{if(!byRow[k.row])byRow[k.row]=[];byRow[k.row].push(k)});
     for(const[rn,items]of Object.entries(byRow)){
-      // pad to 5 columns
       const cols=["a","i","u","e","o"];
       cols.forEach(c=>{
         const k=items.find(i=>{
           if(rn==="y")return(c==="a"&&i.r==="ya")||(c==="u"&&i.r==="yu")||(c==="o"&&i.r==="yo");
           if(rn==="w")return(c==="a"&&i.r==="wa")||(c==="o"&&i.r==="wo");
           if(rn==="nn")return c==="a"&&i.r==="n";
-          return i.r.endsWith(c)||(i.r===c);
-        });
+          return i.r.endsWith(c)||(i.r===c)});
         if(!k){html+=`<div class="gojuon-cell empty"></div>`;return}
         const mastered=d.gojuon[k.r]&&d.gojuon[k.r].mastered;
         const display=sc==="hiragana"?k.h:sc==="katakana"?k.k:`${k.h}<span style="font-size:14px;color:var(--text-secondary)"> ${k.k}</span>`;
-        html+=`<div class="gojuon-cell${mastered?" mastered":""}" onclick="Gojuon.showDetail('${k.r}')">${display}<span class="romaji">${k.r}</span></div>`;
-      });
-    }
-  });
-  el.innerHTML=`<div class="gojuon-grid">${html}</div>`;
-},
+        html+=`<div class="gojuon-cell${mastered?" mastered":""}" onclick="Gojuon.showDetail('${k.r}')">${display}<span class="romaji">${k.r}</span></div>`})}});
+  el.innerHTML=`<div class="gojuon-grid">${html}</div>`},
 showDetail(r){
-  const k=ALL_KANA.find(x=>x.r===r);if(!k)return;
-  TTS.speak(k.h);
-  showModal(k.h+" / "+k.k,`羅馬拼音：${k.r}`,[{text:"🔊 再聽一次",cls:"btn-primary",action:()=>TTS.speak(k.h)},{text:"關閉",cls:"btn-secondary",action:hideModal}]);
-},
+  const k=ALL_KANA.find(x=>x.r===r);if(!k)return;TTS.speak(k.h);
+  showModal(k.h+" / "+k.k,`羅馬拼音：${k.r}`,[{text:"🔊 再聽",cls:"btn-primary",action:()=>TTS.speak(k.h)},{text:"關閉",cls:"btn-secondary",action:hideModal}])},
 renderFlashcard(el){
   if(!this.deck.length){this.deck=shuffle(ALL_KANA);this.idx=0;this.flipped=false}
-  const k=this.deck[this.idx];const sc=this.script;
-  const front=sc==="katakana"?k.k:k.h;
+  const k=this.deck[this.idx];const sc=this.script;const front=sc==="katakana"?k.k:k.h;
   el.innerHTML=`
     <div style="text-align:center;margin-bottom:8px;color:var(--text-secondary);font-size:14px">${this.idx+1} / ${this.deck.length}</div>
-    <div class="flashcard-container">
+    <div class="flashcard-container" id="fc-container">
       <div class="flashcard${this.flipped?" flipped":""}" onclick="Gojuon.flip()">
-        <div class="flashcard-face"><div class="char">${front}</div><div class="label">點擊翻轉</div></div>
+        <div class="flashcard-face"><div class="char">${front}</div><div class="label">點擊翻轉 · 左右滑動切換</div></div>
         <div class="flashcard-face flashcard-back">
           <div class="romaji-big">${k.r}</div>
           <div style="margin-top:8px;font-size:18px;color:var(--text-secondary)">${k.h} / ${k.k}</div>
@@ -764,39 +872,75 @@ renderFlashcard(el){
     ${this.flipped?`<div class="flashcard-nav">
       <button class="btn btn-error" onclick="Gojuon.rate(false)">不認識</button>
       <button class="btn btn-success" onclick="Gojuon.rate(true)">認識</button>
-    </div>`:""}`;
-  // Auto-play: always speak the kana when card appears
+    </div>`:''}
+    <div class="swipe-hint">← 不認識 · 認識 →</div>`;
   TTS.speak(k.h);
-},
+  setTimeout(()=>{const c=document.getElementById('fc-container');
+    if(c)Swipe.attach(c,{left:()=>Gojuon.rate(false),right:()=>Gojuon.rate(true),up:()=>Gojuon.flip()})},100)},
 flip(){this.flipped=!this.flipped;this.renderFlashcard(document.getElementById("gojuon-content"))},
 rate(ok){
   const k=this.deck[this.idx];const d=Store.load();
   if(!d.gojuon[k.r])d.gojuon[k.r]={mastered:false,correctCount:0,wrongCount:0,lastPracticed:today()};
   if(ok){d.gojuon[k.r].correctCount++;if(d.gojuon[k.r].correctCount>=3)d.gojuon[k.r].mastered=true}
-  else{d.gojuon[k.r].wrongCount++; d.gojuon[k.r].mastered=false}
+  else{d.gojuon[k.r].wrongCount++;d.gojuon[k.r].mastered=false}
   d.gojuon[k.r].lastPracticed=today();d.todayStats.gojuonPracticed++;
   Store.save();Store.updateStreak();
+  if(navigator.vibrate)navigator.vibrate(ok?[30]:[50,30,50]);
   this.idx++;this.flipped=false;
   if(this.idx>=this.deck.length){this.deck=[];this.idx=0;
     showModal("完成！",pick(ENCOURAGE.completion),[{text:"再來一次",cls:"btn-primary",action:()=>{hideModal();Gojuon.render()}},{text:"關閉",cls:"btn-secondary",action:hideModal}]);return}
   this.renderFlashcard(document.getElementById("gojuon-content"))},
+renderWriting(el){
+  if(!this.deck.length){this.deck=shuffle(ALL_KANA);this.idx=0}
+  const k=this.deck[this.idx];const sc=this.script;const ch=sc==="katakana"?k.k:k.h;
+  if(this.writingPhase==="show"){
+    el.innerHTML=`<div style="text-align:center;color:var(--text-secondary);font-size:14px;margin-bottom:8px">${this.idx+1} / ${this.deck.length}</div>
+      <div style="text-align:center;font-size:14px;color:var(--accent-primary);margin-bottom:8px">記住這個字！</div>
+      <div class="writing-grid"><div class="writing-char">${ch}</div></div>
+      <div style="text-align:center;margin-top:8px;font-size:13px;color:var(--text-hint)">${k.r}</div>`;
+    TTS.speak(k.h);
+    clearTimeout(this.writingTimer);
+    this.writingTimer=setTimeout(()=>{this.writingPhase="practice";this.renderWriting(el)},2500);
+  }else if(this.writingPhase==="practice"){
+    el.innerHTML=`<div style="text-align:center;color:var(--text-secondary);font-size:14px;margin-bottom:8px">${this.idx+1} / ${this.deck.length}</div>
+      <div style="text-align:center;font-size:14px;color:var(--accent-warning);margin-bottom:8px">在腦中回想這個字...</div>
+      <div class="writing-grid"><div class="writing-char dim">${ch}</div></div>
+      <div style="text-align:center;margin-top:8px;font-size:16px;font-weight:600">${k.r}</div>
+      <div style="text-align:center;margin-top:16px">
+        <button class="btn btn-secondary" onclick="Gojuon.writingReveal()">顯示答案</button>
+      </div>`;
+  }else{
+    el.innerHTML=`<div style="text-align:center;color:var(--text-secondary);font-size:14px;margin-bottom:8px">${this.idx+1} / ${this.deck.length}</div>
+      <div style="text-align:center;font-size:14px;color:var(--accent-success);margin-bottom:8px">答案揭曉</div>
+      <div class="writing-grid"><div class="writing-char">${ch}</div></div>
+      <div style="text-align:center;margin-top:8px;font-size:16px">${k.r} · ${k.h} / ${k.k}</div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
+        <button class="btn btn-error" onclick="Gojuon.writingRate(false)">不記得</button>
+        <button class="btn btn-success" onclick="Gojuon.writingRate(true)">記得</button>
+      </div>`;
+    TTS.speak(k.h)}},
+writingReveal(){this.writingPhase="reveal";this.renderWriting(document.getElementById("gojuon-content"))},
+writingRate(ok){
+  const k=this.deck[this.idx];const d=Store.load();
+  if(!d.gojuon[k.r])d.gojuon[k.r]={mastered:false,correctCount:0,wrongCount:0,lastPracticed:today()};
+  if(ok){d.gojuon[k.r].correctCount++;if(d.gojuon[k.r].correctCount>=3)d.gojuon[k.r].mastered=true}
+  else{d.gojuon[k.r].wrongCount++}
+  d.gojuon[k.r].lastPracticed=today();d.todayStats.gojuonPracticed++;Store.save();Store.updateStreak();
+  this.idx++;this.writingPhase="show";
+  if(this.idx>=this.deck.length){this.deck=[];this.idx=0;
+    showModal("書寫練習完成！",pick(ENCOURAGE.completion),[{text:"再來",cls:"btn-primary",action:()=>{hideModal();Gojuon.render()}},{text:"關閉",cls:"btn-secondary",action:hideModal}]);return}
+  this.renderWriting(document.getElementById("gojuon-content"))},
 renderQuiz(el){
   if(!this.quizItem||this.answered){
-    this.answered=false;
-    const pool=shuffle(ALL_KANA);this.quizItem=pool[0];
-    const wrongs=pool.slice(1,4);
-    this.quizOpts=shuffle([this.quizItem,...wrongs]);
-  }
-  const k=this.quizItem;const sc=this.script;
-  const qChar=sc==="katakana"?k.k:k.h;
+    this.answered=false;const pool=shuffle(ALL_KANA);this.quizItem=pool[0];
+    const wrongs=pool.slice(1,4);this.quizOpts=shuffle([this.quizItem,...wrongs])}
+  const k=this.quizItem;const sc=this.script;const qChar=sc==="katakana"?k.k:k.h;
   el.innerHTML=`
     <div class="quiz-header"><div style="font-size:14px;color:var(--text-secondary)">這個假名的羅馬拼音是？</div></div>
     <div class="quiz-question">${qChar}</div>
     <div class="quiz-options">${this.quizOpts.map((o,i)=>`<button class="quiz-option" id="gq${i}" onclick="Gojuon.answer(${i})">${o.r}</button>`).join("")}</div>
     <div class="quiz-feedback" id="gojuon-feedback"></div>`;
-  // Auto-play: speak the kana when quiz question appears
-  TTS.speak(k.h);
-},
+  TTS.speak(k.h)},
 answer(i){
   if(this.answered)return;this.answered=true;
   const chosen=this.quizOpts[i];const correct=chosen.r===this.quizItem.r;
@@ -804,20 +948,16 @@ answer(i){
   if(!d.gojuon[k.r])d.gojuon[k.r]={mastered:false,correctCount:0,wrongCount:0,lastPracticed:today()};
   if(correct){d.gojuon[k.r].correctCount++;if(d.gojuon[k.r].correctCount>=3)d.gojuon[k.r].mastered=true}
   else{d.gojuon[k.r].wrongCount++}
-  d.gojuon[k.r].lastPracticed=today();d.todayStats.gojuonPracticed++;
-  Store.save();Store.updateStreak();
-
+  d.gojuon[k.r].lastPracticed=today();d.todayStats.gojuonPracticed++;Store.save();Store.updateStreak();
+  if(navigator.vibrate)navigator.vibrate(correct?[30]:[50,30,50]);
   document.getElementById("gq"+i).classList.add(correct?"correct":"wrong");
   if(!correct){const ci=this.quizOpts.findIndex(o=>o.r===this.quizItem.r);document.getElementById("gq"+ci).classList.add("correct")}
   document.getElementById("gojuon-feedback").textContent=correct?pick(ENCOURAGE.correct):pick(ENCOURAGE.wrong);
   document.getElementById("gojuon-feedback").style.color=correct?"var(--accent-success)":"var(--accent-error)";
   TTS.speak(this.quizItem.h);
-
-  setTimeout(()=>{this.quizItem=null;this.renderQuiz(document.getElementById("gojuon-content"))},1200);
-}
+  setTimeout(()=>{this.quizItem=null;this.renderQuiz(document.getElementById("gojuon-content"))},1200)}
 };
-
-// Gojuon pill event handlers
+// Gojuon pill handlers
 document.getElementById("gojuon-script-pills").addEventListener("click",e=>{
   const p=e.target.closest(".pill");if(!p)return;
   document.querySelectorAll("#gojuon-script-pills .pill").forEach(x=>x.classList.remove("active"));
@@ -825,7 +965,7 @@ document.getElementById("gojuon-script-pills").addEventListener("click",e=>{
 document.getElementById("gojuon-mode-pills").addEventListener("click",e=>{
   const p=e.target.closest(".pill");if(!p)return;
   document.querySelectorAll("#gojuon-mode-pills .pill").forEach(x=>x.classList.remove("active"));
-  p.classList.add("active");Gojuon.mode=p.dataset.mode;Gojuon.deck=[];Gojuon.quizItem=null;Gojuon.render()});
+  p.classList.add("active");Gojuon.mode=p.dataset.mode;Gojuon.deck=[];Gojuon.quizItem=null;Gojuon.writingPhase="show";Gojuon.render()});
 
 // ================================================================
 // MODULE: Vocab
@@ -833,11 +973,10 @@ document.getElementById("gojuon-mode-pills").addEventListener("click",e=>{
 const VocabMod={
 deck:[],idx:0,flipped:false,session:{correct:0,wrong:0,total:0},
 init(){
-  const d=Store.load();
-  const due=SM2.getDue();
-  const newCards=SM2.getNew(Math.max(1,d.settings.dailyGoal-due.length));
+  const d=Store.load();const due=FSRS.getDue();
+  const newCards=FSRS.getNew(Math.max(1,d.settings.dailyGoal-due.length));
   this.deck=[...due.map(c=>{const v=VOCAB.find(x=>x.id===+c.id);return v?{vocab:v,card:c}:null}).filter(Boolean),
-    ...newCards.map(v=>({vocab:v,card:SM2.newCard()}))];
+    ...newCards.map(v=>({vocab:v,card:FSRS.newCard()}))];
   this.idx=0;this.flipped=false;this.session={correct:0,wrong:0,total:this.deck.length};
   this.render()},
 render(){
@@ -851,13 +990,12 @@ render(){
       <div class="count">${this.idx+1} / ${this.deck.length}</div>
       <div class="progress-bar" style="flex:1"><div class="fill" style="width:${pct}%"></div></div>
     </div>
-    <div class="vocab-card-container">
+    <div class="vocab-card-container" id="vc-container">
       <div class="vocab-card${this.flipped?" flipped":""}" onclick="VocabMod.flip()">
-        <div class="vocab-face"><div class="word">${v.w}</div><div class="hint">點擊翻轉查看答案</div></div>
+        <div class="vocab-face"><div class="word">${v.w}</div><div class="hint">點擊翻轉 · 左右滑動評分</div></div>
         <div class="vocab-face vocab-back">
           <div style="display:flex;align-items:center;justify-content:center;gap:8px">
-            <div class="reading">${v.rd}</div>
-            ${TTS.btn(v.rd,true)}
+            <div class="reading">${v.rd}</div>${TTS.btn(v.rd,true)}
           </div>
           <div class="romaji-sm">${v.ro}</div>
           <div class="meaning">${v.m}</div>
@@ -867,55 +1005,58 @@ render(){
       </div>
     </div>
     ${this.flipped?`<div class="vocab-rating">
-      <button class="rate-btn r1" onclick="VocabMod.rate(1)">完全不會</button>
-      <button class="rate-btn r2" onclick="VocabMod.rate(2)">有點印象</button>
-      <button class="rate-btn r3" onclick="VocabMod.rate(3)">想了一下</button>
-      <button class="rate-btn r5" onclick="VocabMod.rate(5)">非常熟悉</button>
-    </div>`:""}`;
-  // Auto-play: speak the word when card appears
+      <button class="rate-btn r1" onclick="VocabMod.rate(1)">😵 忘記</button>
+      <button class="rate-btn r2" onclick="VocabMod.rate(2)">😐 困難</button>
+      <button class="rate-btn r3" onclick="VocabMod.rate(3)">🙂 想一下</button>
+      <button class="rate-btn r4" onclick="VocabMod.rate(4)">😎 秒答</button>
+    </div>`:""}
+    <div class="swipe-hint">← 忘記 · 秒答 →</div>`;
   TTS.speak(v.rd);
-},
+  setTimeout(()=>{const c=document.getElementById('vc-container');
+    if(c)Swipe.attach(c,{left:()=>{if(this.flipped)this.rate(1);else this.flip()},
+      right:()=>{if(this.flipped)this.rate(4);else this.flip()},up:()=>this.flip()})},100)},
 flip(){if(!this.flipped){this.flipped=true;this.render()}},
 rate(q){
   const item=this.deck[this.idx];const d=Store.load();const id=String(item.vocab.id);
-  if(!d.vocab[id])d.vocab[id]=SM2.newCard();
-  const result=SM2.calc(d.vocab[id],q);
+  if(!d.vocab[id])d.vocab[id]=FSRS.newCard();
+  const result=FSRS.review(d.vocab[id],q);
   d.vocab[id]={...d.vocab[id],...result};
-  d.vocab[id].totalReviews=(d.vocab[id].totalReviews||0)+1;
-  if(q>=3){d.vocab[id].correctCount=(d.vocab[id].correctCount||0)+1;this.session.correct++;
-    if(item.card.repetitions===0)d.todayStats.newWordsLearned++;else d.todayStats.wordsReviewed++}
-  else{d.vocab[id].wrongCount=(d.vocab[id].wrongCount||0)+1;this.session.wrong++;d.todayStats.wordsReviewed++}
+  if(q>=2){this.session.correct++;
+    if(item.card.reps===0)d.todayStats.newWordsLearned++;else d.todayStats.wordsReviewed++}
+  else{this.session.wrong++;d.todayStats.wordsReviewed++;Store.addError(item.vocab.id)}
   Store.save();Store.updateStreak();
+  if(navigator.vibrate)navigator.vibrate(q>=3?[30]:[50,30,50]);
   this.idx++;this.flipped=false;this.render()},
 renderComplete(el){
   const total=this.session.correct+this.session.wrong;
   const pct=total>0?Math.round(this.session.correct/total*100):0;
+  const d=Store.load();Achievements.check(d);
   el.innerHTML=`<div class="vocab-complete anim-fade-in">
-    <div class="emoji">🎉</div>
-    <h2>今日學習完成！</h2>
+    <div class="emoji">🎉</div><h2>今日學習完成！</h2>
     <div class="result-circle" style="background:conic-gradient(var(--accent-success) ${pct*3.6}deg,var(--bg-secondary) 0)">
       <div style="width:110px;height:110px;border-radius:50%;background:var(--bg-primary);display:flex;flex-direction:column;align-items:center;justify-content:center">
         <div class="pct">${pct}%</div><div class="pct-label">正確率</div>
       </div>
     </div>
-    <div class="stats" style="color:var(--text-secondary);line-height:2">
-      正確：${this.session.correct} 個<br>需加強：${this.session.wrong} 個<br>總計：${total} 個
-    </div>
+    <div class="stats" style="color:var(--text-secondary);line-height:2">正確：${this.session.correct} 個<br>需加強：${this.session.wrong} 個<br>總計：${total} 個</div>
     <div style="font-size:16px;font-weight:600;margin-bottom:16px;color:var(--accent-primary)">${pick(ENCOURAGE.completion)}</div>
     <button class="btn btn-primary" onclick="Router.go('home')">回到首頁</button>
   </div>`},
 browseAll(){
   const el=document.getElementById("vocab-content");
+  const cats={verb:"動詞",noun:"名詞",adj:"形容詞",place:"場所",people:"人物",time:"時間",greet:"招呼",num:"數量",food:"食べ物",color:"色",nature:"自然",body:"体",verb2:"動詞2",adverb:"副詞"};
   let html='<div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="VocabMod.init()">← 返回</button></div>';
-  VOCAB.forEach(v=>{
-    html+=`<div class="card" style="margin-bottom:8px;padding:12px">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-        <div style="flex:1"><span style="font-size:18px;font-weight:700">${v.w}</span> <span style="color:var(--text-secondary);font-size:14px">${v.rd}</span></div>
-        ${TTS.btn(v.rd,true)}
-        <div style="font-size:15px">${v.m}</div>
-      </div>
-      <div style="font-size:12px;color:var(--text-hint);margin-top:4px">${v.pos} | ${v.ex.ja} → ${v.ex.zh}</div>
-    </div>`});
+  Object.entries(cats).forEach(([cat,label])=>{
+    const words=VOCAB.filter(v=>v.cat===cat);if(!words.length)return;
+    html+=`<div style="font-size:14px;font-weight:600;margin:12px 0 8px;color:var(--accent-secondary)">${label} (${words.length})</div>`;
+    words.forEach(v=>{
+      html+=`<div class="card" style="margin-bottom:8px;padding:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+          <div style="flex:1"><span style="font-size:18px;font-weight:700">${v.w}</span> <span style="color:var(--text-secondary);font-size:14px">${v.rd}</span></div>
+          ${TTS.btn(v.rd,true)}<div style="font-size:15px">${v.m}</div>
+        </div>
+        <div style="font-size:12px;color:var(--text-hint);margin-top:4px">${v.pos} | ${v.ex.ja} → ${v.ex.zh}</div>
+      </div>`})});
   el.innerHTML=html}
 };
 
@@ -938,9 +1079,7 @@ renderSetup(){
     <div class="quiz-type-list">${types.map(t=>`<div class="quiz-type-item${this.type===t.id?" selected":""}" onclick="Quiz.setType('${t.id}')"><h4>${t.name}</h4><p>${t.desc}</p></div>`).join("")}</div>
     <div style="text-align:center;font-size:14px;color:var(--text-secondary);margin-bottom:4px">題數</div>
     <div class="quiz-count">
-      <button onclick="Quiz.adjCount(-5)">-</button>
-      <div class="num">${this.count}</div>
-      <button onclick="Quiz.adjCount(5)">+</button>
+      <button onclick="Quiz.adjCount(-5)">-</button><div class="num">${this.count}</div><button onclick="Quiz.adjCount(5)">+</button>
     </div>
     <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="Quiz.start()">開始測驗</button>
   </div>`},
@@ -959,16 +1098,9 @@ start(){
       const otherC=VOCAB.filter(x=>x.cat!==v.cat);
       let wrongs=[...shuffle(sameC).slice(0,2),...shuffle(otherC).slice(0,2)].slice(0,3);
       if(wrongs.length<3)wrongs=[...wrongs,...shuffle(VOCAB.filter(x=>x.id!==v.id)).slice(0,3-wrongs.length)];
-      if(this.type==="vocab_choice"){
-        this.questions.push({type:"choice",question:v.w,answer:v.m,answerFull:v,
-          options:shuffle([v,...wrongs]).map(o=>o.m)});
-      }else if(this.type==="vocab_reverse"){
-        this.questions.push({type:"reverse",question:v.m,answer:v.w,answerFull:v,
-          options:shuffle([v,...wrongs]).map(o=>o.w)});
-      }else{
-        this.questions.push({type:"typing",question:v.m+"（"+v.pos+"）",answer:v.rd,answerRo:v.ro,answerFull:v});
-      }
-    });
+      if(this.type==="vocab_choice")this.questions.push({type:"choice",question:v.w,answer:v.m,answerFull:v,options:shuffle([v,...wrongs]).map(o=>o.m)});
+      else if(this.type==="vocab_reverse")this.questions.push({type:"reverse",question:v.m,answer:v.w,answerFull:v,options:shuffle([v,...wrongs]).map(o=>o.w)});
+      else this.questions.push({type:"typing",question:v.m+"（"+v.pos+"）",answer:v.rd,answerRo:v.ro,answerFull:v})});
   }
   this.state="playing";this.renderQuestion()},
 renderQuestion(){
@@ -987,66 +1119,53 @@ renderQuestion(){
     html+=`<div style="text-align:center;font-size:14px;color:var(--text-secondary)">${q.type==="gojuon"?"這個假名的羅馬拼音是？":"選出正確答案"}</div>
       <div class="quiz-question">${q.question}</div>
       <div class="quiz-options">${q.options.map((o,i)=>`<button class="quiz-option" id="qo${i}" onclick="Quiz.pick(${i})">${o}</button>`).join("")}</div>
-      <div class="quiz-feedback" id="quiz-fb"></div>`;
-  }
+      <div class="quiz-feedback" id="quiz-fb"></div>`}
   el.innerHTML=html;
   if(q.type==="typing")setTimeout(()=>{const inp=document.getElementById("typing-ans");if(inp)inp.focus()},100);
-  // Auto-play: speak the question when it appears
   if(q.type==="choice"&&q.answerFull)TTS.speak(q.answerFull.rd);
-  else if(q.type==="gojuon"){const k=ALL_KANA.find(x=>x.h===q.question);if(k)TTS.speak(k.h)}
-},
+  else if(q.type==="gojuon"){const k=ALL_KANA.find(x=>x.h===q.question);if(k)TTS.speak(k.h)}},
 pick(i){
-  const q=this.questions[this.qIdx];
-  const chosen=q.options[i];const correct=chosen===q.answer;
+  const q=this.questions[this.qIdx];const chosen=q.options[i];const correct=chosen===q.answer;
   this.answers.push({q:q.question,chosen,correct:q.answer,isCorrect:correct});
   document.getElementById("qo"+i).classList.add(correct?"correct":"wrong");
-  if(!correct){const ci=q.options.indexOf(q.answer);if(ci>=0)document.getElementById("qo"+ci).classList.add("correct")}
+  if(!correct){const ci=q.options.indexOf(q.answer);if(ci>=0)document.getElementById("qo"+ci).classList.add("correct");
+    if(q.answerFull)Store.addError(q.answerFull.id,chosen,q.answer)}
   const fb=document.getElementById("quiz-fb");fb.textContent=correct?pick(ENCOURAGE.correct):pick(ENCOURAGE.wrong);
   fb.style.color=correct?"var(--accent-success)":"var(--accent-error)";
   document.querySelectorAll(".quiz-option").forEach(b=>b.style.pointerEvents="none");
-  // Play correct answer pronunciation
+  if(navigator.vibrate)navigator.vibrate(correct?[30]:[50,30,50]);
   if(q.answerFull)TTS.speak(q.answerFull.rd);
   else if(q.type==="gojuon"){const k=ALL_KANA.find(x=>x.r===q.answer);if(k)TTS.speak(k.h)}
-  setTimeout(()=>{this.qIdx++;this.renderQuestion()},1000);
-},
+  setTimeout(()=>{this.qIdx++;this.renderQuestion()},1000)},
 submitTyping(){
   const inp=document.getElementById("typing-ans");if(!inp)return;
   const val=inp.value.trim();if(!val)return;
-  const q=this.questions[this.qIdx];
-  const correct=this.checkTyping(val,q.answer,q.answerRo);
+  const q=this.questions[this.qIdx];const correct=this.checkTyping(val,q.answer,q.answerRo);
   this.answers.push({q:q.question,chosen:val,correct:q.answer,isCorrect:correct});
+  if(!correct&&q.answerFull)Store.addError(q.answerFull.id,val,q.answer);
   const fb=document.getElementById("typing-fb");
   fb.innerHTML=correct?`<span style="color:var(--accent-success)">${pick(ENCOURAGE.correct)}</span>`
     :`<span style="color:var(--accent-error)">${pick(ENCOURAGE.wrong)}<br>正確答案：${q.answer}</span>`;
-  inp.disabled=true;
-  TTS.speak(q.answer);
-  setTimeout(()=>{this.qIdx++;this.renderQuestion()},1200);
-},
+  inp.disabled=true;TTS.speak(q.answer);
+  setTimeout(()=>{this.qIdx++;this.renderQuestion()},1200)},
 checkTyping(input,answer,romaji){
   const n=input.toLowerCase().trim();const a=answer.toLowerCase();
   if(n===a||n===romaji)return true;
-  // Romaji variants
   const vars={si:"shi",ti:"chi",tu:"tsu",hu:"fu",zi:"ji"};
   let mod=n;for(const[k,v]of Object.entries(vars)){mod=mod.replace(k,v)}
   if(mod===romaji)return true;
   mod=n;for(const[k,v]of Object.entries(vars)){mod=mod.replace(v,k)}
-  if(mod===romaji)return true;
-  return false;
-},
+  if(mod===romaji)return true;return false},
 renderResult(el){
   const d=Store.load();const correct=this.answers.filter(a=>a.isCorrect).length;
   const total=this.answers.length;const pct=Math.round(correct/total*100);
   const duration=Math.round((Date.now()-this.startTime)/1000);
   const wrongs=this.answers.filter(a=>!a.isCorrect);
-
-  // Save to history
   d.quizHistory.push({id:"q_"+Date.now(),type:this.type,date:new Date().toISOString(),
     totalQuestions:total,correctAnswers:correct,wrongAnswers:wrongs.map(w=>({q:w.q,user:w.chosen,correct:w.correct})),duration});
   if(d.quizHistory.length>50)d.quizHistory=d.quizHistory.slice(-50);
-  d.todayStats.quizzesTaken++;
-  d.todayStats.correctRate=pct;
-  Store.save();Store.updateStreak();
-
+  d.todayStats.quizzesTaken++;d.todayStats.correctRate=pct;
+  Store.save();Store.updateStreak();Achievements.check(d);
   this.state="result";
   el.innerHTML=`<div class="quiz-result anim-fade-in">
     <h2>測驗結果</h2>
@@ -1065,7 +1184,6 @@ renderResult(el){
   </div>`},
 retryWrong(){
   const wrongs=this.answers.filter(a=>!a.isCorrect);
-  // rebuild questions from wrongs
   this.questions=[];this.answers=[];this.qIdx=0;this.startTime=Date.now();
   wrongs.forEach(w=>{
     if(this.type==="gojuon_quiz"){
@@ -1075,21 +1193,25 @@ retryWrong(){
     }else{
       const v=VOCAB.find(x=>x.w===w.q||x.m===w.q||x.m+"（"+x.pos+"）"===w.q);if(!v)return;
       const wr=shuffle(VOCAB.filter(x=>x.id!==v.id)).slice(0,3);
-      if(this.type==="vocab_choice")this.questions.push({type:"choice",question:v.w,answer:v.m,options:shuffle([v,...wr]).map(o=>o.m)});
-      else if(this.type==="vocab_reverse")this.questions.push({type:"reverse",question:v.m,answer:v.w,options:shuffle([v,...wr]).map(o=>o.w)});
-      else this.questions.push({type:"typing",question:v.m+"（"+v.pos+"）",answer:v.rd,answerRo:v.ro});
-    }
+      if(this.type==="vocab_choice")this.questions.push({type:"choice",question:v.w,answer:v.m,answerFull:v,options:shuffle([v,...wr]).map(o=>o.m)});
+      else if(this.type==="vocab_reverse")this.questions.push({type:"reverse",question:v.m,answer:v.w,answerFull:v,options:shuffle([v,...wr]).map(o=>o.w)});
+      else this.questions.push({type:"typing",question:v.m+"（"+v.pos+"）",answer:v.rd,answerRo:v.ro,answerFull:v})}
   });
   if(!this.questions.length){this.init();return}
   this.state="playing";this.renderQuestion()}
 };
 
 // ================================================================
-// MODULE: Settings
+// MODULE: Settings (with Achievements gallery + Install prompt)
 // ================================================================
+let deferredInstallPrompt=null;
 const Settings={
 render(){
   const d=Store.load();const el=document.getElementById("settings-content");
+  const achHtml=Achievements.list.map(a=>{
+    const unlocked=d.achievements&&d.achievements.includes(a.id);
+    return`<div class="achievement-item ${unlocked?'unlocked':'locked'}">
+      <div class="ach-icon">${a.icon}</div><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>`}).join('');
   el.innerHTML=`
     <div class="settings-group">
       <div class="settings-group-title">外觀</div>
@@ -1121,32 +1243,51 @@ render(){
       </div>
     </div>
     <div class="settings-group">
+      <div class="settings-group-title">成就 (${(d.achievements||[]).length}/${Achievements.list.length})</div>
+      <div class="achievement-grid">${achHtml}</div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">應用程式</div>
+      <button class="install-btn" id="install-btn" onclick="Settings.installApp()">📲 安裝到主螢幕</button>
+    </div>
+    <div class="settings-group">
       <div class="settings-group-title">資料管理</div>
       <div class="settings-item" style="cursor:pointer" onclick="Store.exportData()">
-        <span class="label">匯出學習記錄</span>
-        <span class="value">下載 JSON →</span>
+        <span class="label">匯出學習記錄</span><span class="value">下載 JSON →</span>
       </div>
       <div class="settings-item" style="cursor:pointer" onclick="document.getElementById('import-file').click()">
-        <span class="label">匯入學習記錄</span>
-        <span class="value">上傳 JSON →</span>
+        <span class="label">匯入學習記錄</span><span class="value">上傳 JSON →</span>
       </div>
       <input type="file" id="import-file" class="file-input" accept=".json" onchange="Settings.importFile(event)">
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">學習統計</div>
+      <div class="settings-item"><span class="label">總學習單字</span><span class="value">${Object.keys(d.vocab).length} / ${VOCAB.length}</span></div>
+      <div class="settings-item"><span class="label">最長連續天數</span><span class="value">${d.streak.longest} 天</span></div>
+      <div class="settings-item"><span class="label">測驗次數</span><span class="value">${d.quizHistory.length} 次</span></div>
+      <div class="settings-item"><span class="label">錯題數</span><span class="value">${(d.errorBook||[]).length}</span></div>
+      <div class="settings-item"><span class="label">演算法</span><span class="value">FSRS-4.5</span></div>
     </div>
     <div class="settings-group">
       <div class="settings-group-title">危險區域</div>
       <button class="danger-btn" onclick="Settings.confirmReset()">重置所有進度</button>
     </div>
-    <div class="version-info">日本語マスター v1.0.0<br>資料儲存於瀏覽器本機</div>`},
+    <div class="version-info">日本語マスター v2.0.0<br>FSRS-4.5 智慧間隔重複演算法<br>資料儲存於瀏覽器本機</div>`;
+  // Show install button if available
+  if(deferredInstallPrompt){document.getElementById('install-btn').style.display='block'}},
 setTheme(t){Theme.set(t);this.render()},
 setSound(v){const d=Store.load();d.settings.soundEnabled=v;Store.save();this.render();if(v)TTS.speak("こんにちは")},
-adjGoal(n){const d=Store.load();d.settings.dailyGoal=Math.max(1,Math.min(20,d.settings.dailyGoal+n));Store.save();this.render()},
+adjGoal(n){const d=Store.load();d.settings.dailyGoal=Math.max(1,Math.min(30,d.settings.dailyGoal+n));Store.save();this.render()},
 importFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{
   if(Store.importData(ev.target.result)){showModal("匯入成功","學習記錄已成功還原！",[{text:"確定",cls:"btn-primary",action:()=>{hideModal();Settings.render()}}])}
   else{showModal("匯入失敗","檔案格式不正確",[{text:"關閉",cls:"btn-secondary",action:hideModal}])}};r.readAsText(f)},
 confirmReset(){showModal("確認重置","這將清除所有學習進度和設定，此操作無法恢復！",[
   {text:"取消",cls:"btn-secondary",action:hideModal},
   {text:"確認重置",cls:"btn-error",action:()=>{Store.reset();hideModal();Settings.render();
-    showModal("已重置","所有進度已清除",[{text:"確定",cls:"btn-primary",action:hideModal}])}}])}
+    showModal("已重置","所有進度已清除",[{text:"確定",cls:"btn-primary",action:hideModal}])}}])},
+installApp(){if(deferredInstallPrompt){deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(r=>{deferredInstallPrompt=null;
+    document.getElementById('install-btn').style.display='none'})}}
 };
 
 // ================================================================
@@ -1163,53 +1304,65 @@ function showModal(title,msg,actions){
 function hideModal(){document.getElementById("modal-overlay").classList.remove("show")}
 
 // ================================================================
+// PWA: Service Worker + Manifest
+// ================================================================
+(function initPWA(){
+  // Inline manifest
+  const manifest={
+    name:"日本語マスター",short_name:"日語學習",
+    start_url:".",display:"standalone",
+    background_color:"#FAFAF8",theme_color:"#C41E3A",
+    icons:[{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#C41E3A"/><text x="50" y="65" font-size="50" text-anchor="middle" fill="white" font-family="serif">語</text></svg>'),sizes:"512x512",type:"image/svg+xml"}]
+  };
+  const mBlob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+  const mURL=URL.createObjectURL(mBlob);
+  const link=document.createElement('link');link.rel='manifest';link.href=mURL;
+  document.head.appendChild(link);
+
+  // Inline service worker
+  const swCode=`
+    const CACHE='nihongo-v2';
+    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/'])).catch(()=>{}));self.skipWaiting()});
+    self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
+    self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{if(res.status===200){const c=res.clone();caches.open(CACHE).then(ca=>ca.put(e.request,c))}return res}).catch(()=>new Response('Offline',{status:503})))});
+  `;
+  if('serviceWorker' in navigator){
+    try{
+      const swBlob=new Blob([swCode],{type:'application/javascript'});
+      const swURL=URL.createObjectURL(swBlob);
+      navigator.serviceWorker.register(swURL,{scope:'.'}).catch(()=>{});
+    }catch(e){}
+  }
+
+  // Install prompt capture
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;
+    const btn=document.getElementById('install-btn');if(btn)btn.style.display='block'});
+})();
+
+// ================================================================
 // APP INIT
 // ================================================================
 (function(){
-  Store.load();
-  Theme.init();
-  TTS.init();
-  Router.init();
-  Home.render();
-
-  // Check today stats reset
+  Store.load();Theme.init();TTS.init();Router.init();Home.render();
   const d=Store.load();
   if(d.todayStats.date!==today()){
     d.todayStats={date:today(),newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0};
-    Store.save();
-  }
-
-  // Detect if audio playback is blocked (Telegram WebView, etc.)
-  // Method 1: Check User Agent for known in-app browsers
+    Store.save()}
+  Achievements.check(d);
+  // WebView detection
   const ua=navigator.userAgent||"";
   const knownWebView=/Telegram|TelegramBot|Instagram|FBAN|FBAV|Line\/|Twitter|Snapchat/i.test(ua);
-
-  // Method 2: Try to play audio and detect failure
   function showBanner(){
     const b=document.getElementById("webview-banner");
-    if(b&&b.style.display!=="flex"){
-      b.style.display="flex";
-      document.querySelectorAll(".page").forEach(p=>p.style.paddingTop="56px");
-    }
-  }
-
-  if(knownWebView){
-    showBanner();
-  }else{
-    // Test actual audio playback after first user interaction
-    const testAudio=()=>{
-      const a=new Audio();
-      a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
-      const p=a.play();
-      if(p&&p.catch)p.catch(()=>showBanner());
-      document.removeEventListener("click",testAudio);
-      document.removeEventListener("touchstart",testAudio);
-    };
-    setTimeout(()=>{
-      document.addEventListener("click",testAudio,{once:true});
-      document.addEventListener("touchstart",testAudio,{once:true,passive:true});
-    },1000);
-  }
+    if(b&&b.style.display!=="flex"){b.style.display="flex";
+      document.querySelectorAll(".page").forEach(p=>p.style.paddingTop="56px")}}
+  if(knownWebView){showBanner()}
+  else{const testAudio=()=>{const a=new Audio();
+    a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+    const p=a.play();if(p&&p.catch)p.catch(()=>showBanner());
+    document.removeEventListener("click",testAudio);document.removeEventListener("touchstart",testAudio)};
+    setTimeout(()=>{document.addEventListener("click",testAudio,{once:true});
+      document.addEventListener("touchstart",testAudio,{once:true,passive:true})},1000)}
 })();
 </script>
 </body>
