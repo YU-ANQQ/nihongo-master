@@ -270,9 +270,27 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .sound-btn.playing{animation:soundPulse .8s ease}
 .sound-btn-sm{width:32px;height:32px}
 .sound-btn-sm svg{width:16px;height:16px}
+
+/* ========== WEBVIEW BANNER ========== */
+.webview-banner{position:fixed;top:0;left:0;right:0;z-index:300;
+  background:var(--accent-primary);color:#fff;padding:10px 16px;
+  display:flex;align-items:center;gap:10px;font-size:13px;line-height:1.4;
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);max-width:480px;margin:0 auto}
+.webview-banner .banner-text{flex:1}
+.webview-banner .banner-btn{padding:6px 14px;border-radius:6px;
+  background:#fff;color:var(--accent-primary);font-weight:700;font-size:13px;
+  white-space:nowrap;flex-shrink:0}
+.webview-banner .banner-close{width:28px;height:28px;display:flex;
+  align-items:center;justify-content:center;font-size:18px;opacity:0.8;flex-shrink:0}
 </style>
 </head>
 <body>
+<!-- WebView detection banner -->
+<div class="webview-banner" id="webview-banner" style="display:none">
+  <div class="banner-text">📢 在 Telegram 內開啟無法播放聲音，請用外部瀏覽器開啟</div>
+  <button class="banner-btn" onclick="window.open(location.href,'_system')||window.open(location.href,'_blank')">開啟瀏覽器</button>
+  <button class="banner-close" onclick="document.getElementById('webview-banner').style.display='none'">✕</button>
+</div>
 <div id="app">
 
 <!-- ===== HOME PAGE ===== -->
@@ -1159,6 +1177,17 @@ function hideModal(){document.getElementById("modal-overlay").classList.remove("
   if(d.todayStats.date!==today()){
     d.todayStats={date:today(),newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0};
     Store.save();
+  }
+
+  // Detect Telegram WebView or other in-app browsers
+  const ua=navigator.userAgent||"";
+  const isWebView=/Telegram|TelegramBot|Instagram|FBAN|FBAV|Line\//i.test(ua)
+    || (!/Safari/i.test(ua)&&/Mobile/i.test(ua)&&/AppleWebKit/i.test(ua));
+  if(isWebView){
+    const b=document.getElementById("webview-banner");
+    if(b)b.style.display="flex";
+    // Adjust app padding so banner doesn't overlap content
+    document.querySelectorAll(".page").forEach(p=>p.style.paddingTop="56px");
   }
 })();
 </script>
