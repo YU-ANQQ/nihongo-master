@@ -287,10 +287,11 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 <body>
 <!-- WebView detection banner -->
 <div class="webview-banner" id="webview-banner" style="display:none">
-  <div class="banner-text">📢 在 Telegram 內開啟無法播放聲音，請用外部瀏覽器開啟</div>
-  <button class="banner-btn" onclick="window.open(location.href,'_system')||window.open(location.href,'_blank')">開啟瀏覽器</button>
-  <button class="banner-close" onclick="document.getElementById('webview-banner').style.display='none'">✕</button>
+  <div class="banner-text">🔇 目前無法播放聲音，請點右邊按鈕用瀏覽器開啟</div>
+  <a class="banner-btn" id="open-browser-btn" href="" target="_blank" rel="noopener">開啟瀏覽器</a>
+  <button class="banner-close" onclick="document.getElementById('webview-banner').style.display='none';document.querySelectorAll('.page').forEach(p=>p.style.paddingTop='')">✕</button>
 </div>
+<script>document.getElementById("open-browser-btn").href=location.href;</script>
 <div id="app">
 
 <!-- ===== HOME PAGE ===== -->
@@ -1179,15 +1180,36 @@ function hideModal(){document.getElementById("modal-overlay").classList.remove("
     Store.save();
   }
 
-  // Detect Telegram WebView or other in-app browsers
+  // Detect if audio playback is blocked (Telegram WebView, etc.)
+  // Method 1: Check User Agent for known in-app browsers
   const ua=navigator.userAgent||"";
-  const isWebView=/Telegram|TelegramBot|Instagram|FBAN|FBAV|Line\//i.test(ua)
-    || (!/Safari/i.test(ua)&&/Mobile/i.test(ua)&&/AppleWebKit/i.test(ua));
-  if(isWebView){
+  const knownWebView=/Telegram|TelegramBot|Instagram|FBAN|FBAV|Line\/|Twitter|Snapchat/i.test(ua);
+
+  // Method 2: Try to play audio and detect failure
+  function showBanner(){
     const b=document.getElementById("webview-banner");
-    if(b)b.style.display="flex";
-    // Adjust app padding so banner doesn't overlap content
-    document.querySelectorAll(".page").forEach(p=>p.style.paddingTop="56px");
+    if(b&&b.style.display!=="flex"){
+      b.style.display="flex";
+      document.querySelectorAll(".page").forEach(p=>p.style.paddingTop="56px");
+    }
+  }
+
+  if(knownWebView){
+    showBanner();
+  }else{
+    // Test actual audio playback after first user interaction
+    const testAudio=()=>{
+      const a=new Audio();
+      a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+      const p=a.play();
+      if(p&&p.catch)p.catch(()=>showBanner());
+      document.removeEventListener("click",testAudio);
+      document.removeEventListener("touchstart",testAudio);
+    };
+    setTimeout(()=>{
+      document.addEventListener("click",testAudio,{once:true});
+      document.addEventListener("touchstart",testAudio,{once:true,passive:true});
+    },1000);
   }
 })();
 </script>
