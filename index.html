@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>日本語マスター - 日語背誦學習</title>
 <style>
-/* ========== JOBS PHILOSOPHY: "Simplicity is the ultimate sophistication" ========== */
+/* ========== USER CARE PHILOSOPHY: "Every interaction should feel like a warm conversation" ========== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
 body{font-family:-apple-system,"SF Pro Display","Hiragino Sans","Yu Gothic","Noto Sans JP","Microsoft JhengHei",system-ui,sans-serif;
@@ -18,13 +18,14 @@ body{font-family:-apple-system,"SF Pro Display","Hiragino Sans","Yu Gothic","Not
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit;
   -webkit-tap-highlight-color:transparent;touch-action:manipulation}
 input{font-family:inherit;border:none;outline:none;background:none;color:inherit}
-/* ========== WABI-SABI COLOR PALETTE: Natural, warm, restrained ========== */
+/* ========== WABI-SABI COLOR PALETTE ========== */
 :root{
   --bg-primary:#F7F6F3;--bg-secondary:#EFEEE9;--bg-card:rgba(255,255,255,0.72);
   --bg-glass:rgba(255,255,255,0.6);
   --text-primary:#1D1D1F;--text-secondary:#86868B;--text-hint:#AEAEB2;
   --accent-primary:#D4513D;--accent-secondary:#3478F6;
   --accent-success:#34C759;--accent-warning:#FF9F0A;--accent-error:#FF3B30;
+  --accent-purple:#AF52DE;
   --border-color:rgba(60,60,67,0.08);
   --shadow-sm:0 1px 4px rgba(0,0,0,0.04);
   --shadow-md:0 8px 30px rgba(0,0,0,0.06);
@@ -39,11 +40,12 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   --text-primary:#F5F5F7;--text-secondary:#98989D;--text-hint:#636366;
   --accent-primary:#FF6B5B;--accent-secondary:#5B9BD5;
   --accent-success:#30D158;--accent-warning:#FFD60A;--accent-error:#FF453A;
+  --accent-purple:#BF5AF2;
   --border-color:rgba(255,255,255,0.08);
   --shadow-sm:none;--shadow-md:0 8px 30px rgba(0,0,0,0.3);
   --shadow-lg:0 20px 60px rgba(0,0,0,0.4);
 }
-/* ========== APP SHELL: Liquid Glass depth ========== */
+/* ========== APP SHELL ========== */
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh;
   max-width:480px;margin:0 auto;position:relative;overflow:hidden}
 .page{position:absolute;top:0;left:0;right:0;bottom:0;
@@ -53,7 +55,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   transition:opacity .4s cubic-bezier(0.25,0.1,0.25,1),transform .4s cubic-bezier(0.25,0.1,0.25,1);
   pointer-events:none;z-index:1;background:var(--bg-primary)}
 .page.active{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;z-index:2}
-/* ========== BOTTOM NAV: Glassmorphism ========== */
+/* ========== BOTTOM NAV ========== */
 .bottom-nav{position:absolute;bottom:0;left:0;right:0;
   height:calc(var(--nav-height) + env(safe-area-inset-bottom,0px));
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -68,16 +70,16 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .nav-item svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .nav-item .nav-text{font-size:10px;font-weight:500;letter-spacing:0.02em}
 .nav-item .nav-icon-text{font-size:20px;font-weight:700;line-height:22px}
-/* ========== TYPOGRAPHY: SF Pro hierarchy ========== */
+/* ========== TYPOGRAPHY ========== */
 .section-title{font-size:28px;font-weight:700;margin-bottom:20px;color:var(--text-primary);
   letter-spacing:-0.02em;line-height:1.2}
-/* ========== CARDS: Liquid Glass ========== */
+/* ========== CARDS ========== */
 .card{background:var(--bg-card);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
   border-radius:var(--radius-md);padding:20px;
   box-shadow:var(--shadow-md);border:0.5px solid var(--border-color);
   transition:transform .3s cubic-bezier(0.25,0.1,0.25,1),box-shadow .3s ease}
 .card:active{transform:scale(0.98)}
-/* ========== BUTTONS: Generous touch targets, spring feel ========== */
+/* ========== BUTTONS ========== */
 .btn{display:inline-flex;align-items:center;justify-content:center;
   padding:14px 28px;border-radius:var(--radius-sm);font-weight:600;font-size:16px;
   transition:all .25s cubic-bezier(0.25,0.1,0.25,1);min-height:50px;min-width:50px;
@@ -91,19 +93,19 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .btn-success{background:var(--accent-success);color:#fff;box-shadow:0 4px 16px rgba(52,199,89,0.3)}
 .btn-error{background:var(--accent-error);color:#fff;box-shadow:0 4px 16px rgba(255,59,48,0.3)}
 .btn-block{width:100%;display:flex}
-/* ========== PILLS: iOS segmented control ========== */
+/* ========== PILLS ========== */
 .pill-group{display:flex;gap:4px;background:var(--bg-secondary);border-radius:10px;padding:3px}
 .pill{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;
   transition:all .3s cubic-bezier(0.25,0.1,0.25,1);color:var(--text-secondary)}
 .pill.active{background:var(--bg-card);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
   color:var(--text-primary);box-shadow:0 1px 4px rgba(0,0,0,0.08)}
-/* ========== PROGRESS: Thinner, more elegant ========== */
+/* ========== PROGRESS ========== */
 .progress-bar{width:100%;height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden}
 .progress-bar .fill{height:100%;border-radius:3px;transition:width .6s cubic-bezier(0.25,0.1,0.25,1);background:var(--accent-primary)}
 .badge{display:inline-flex;align-items:center;justify-content:center;
   padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;
   background:var(--accent-primary);color:#fff}
-/* ========== MODAL: Centered, glass, spring animation ========== */
+/* ========== MODAL ========== */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(0,0,0,0.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;
@@ -119,7 +121,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .modal p{color:var(--text-secondary);margin-bottom:24px;font-size:15px;line-height:1.6}
 .modal-actions{display:flex;gap:10px}
 .modal-actions .btn{flex:1}
-/* ========== ANIMATIONS: Apple spring physics ========== */
+/* ========== ANIMATIONS ========== */
 @keyframes correctBounce{0%{transform:scale(1)}40%{transform:scale(1.08)}60%{transform:scale(0.97)}80%{transform:scale(1.02)}100%{transform:scale(1)}}
 @keyframes wrongShake{0%,100%{transform:translateX(0)}15%{transform:translateX(-6px)}30%{transform:translateX(6px)}45%{transform:translateX(-4px)}60%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -127,11 +129,88 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 @keyframes confetti{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(400px) rotate(720deg);opacity:0}}
 @keyframes breathe{0%,100%{opacity:0.5}50%{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes celebrate{0%{transform:scale(1) rotate(0)}25%{transform:scale(1.2) rotate(-5deg)}50%{transform:scale(1.3) rotate(5deg)}75%{transform:scale(1.1) rotate(-3deg)}100%{transform:scale(1) rotate(0)}}
 .anim-correct{animation:correctBounce .5s cubic-bezier(0.34,1.56,0.64,1)}
 .anim-wrong{animation:wrongShake .5s cubic-bezier(0.25,0.1,0.25,1)}
 .anim-fade-in{animation:fadeInUp .5s cubic-bezier(0.25,0.1,0.25,1)}
 .anim-pop{animation:popIn .4s cubic-bezier(0.34,1.56,0.64,1)}
-/* ========== HOME: Generous whitespace, clear hierarchy ========== */
+.anim-float{animation:float 3s ease-in-out infinite}
+/* ========== ONBOARDING ========== */
+.onboarding-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;
+  background:var(--bg-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 24px;text-align:center;transition:opacity .5s ease}
+.onboarding-overlay.hiding{opacity:0;pointer-events:none}
+.onboard-mascot{font-size:80px;margin-bottom:20px;animation:float 3s ease-in-out infinite}
+.onboard-title{font-size:28px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px}
+.onboard-desc{font-size:16px;color:var(--text-secondary);line-height:1.6;margin-bottom:32px;max-width:300px}
+.onboard-dots{display:flex;gap:8px;margin-bottom:32px}
+.onboard-dot{width:8px;height:8px;border-radius:50%;background:var(--border-color);transition:all .3s ease}
+.onboard-dot.active{width:24px;background:var(--accent-primary)}
+/* ========== MASCOT ========== */
+.mascot{display:inline-block;transition:transform .3s cubic-bezier(0.34,1.56,0.64,1)}
+.mascot-sm{font-size:24px}
+.mascot-md{font-size:40px}
+.mascot-lg{font-size:64px}
+.mascot-happy{animation:celebrate .6s cubic-bezier(0.34,1.56,0.64,1)}
+.mascot-sad{animation:wrongShake .5s ease}
+/* ========== SESSION RITUAL ========== */
+.session-start{position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;
+  background:var(--bg-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px;opacity:0;pointer-events:none;transition:opacity .4s ease}
+.session-start.show{opacity:1;pointer-events:auto}
+.session-breathe{width:80px;height:80px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,81,61,0.15),transparent);
+  display:flex;align-items:center;justify-content:center;
+  animation:pulse 2s ease-in-out infinite}
+.session-breathe-inner{width:48px;height:48px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,81,61,0.3),rgba(212,81,61,0.1));
+  animation:pulse 2s ease-in-out infinite 0.2s}
+/* ========== DAILY SENTENCE ========== */
+.daily-sentence{background:linear-gradient(135deg,rgba(212,81,61,0.08),rgba(52,120,246,0.08));
+  border-radius:var(--radius-md);padding:20px;margin-bottom:16px;
+  border:0.5px solid var(--border-color);position:relative;overflow:hidden}
+.daily-sentence::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary),var(--accent-purple));
+  background-size:200% 100%;animation:shimmer 3s linear infinite}
+.daily-sentence .ds-label{font-size:11px;color:var(--accent-primary);font-weight:600;
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.daily-sentence .ds-ja{font-size:22px;font-weight:600;margin-bottom:4px;letter-spacing:-0.01em}
+.daily-sentence .ds-rd{font-size:14px;color:var(--text-secondary);margin-bottom:4px}
+.daily-sentence .ds-zh{font-size:15px;color:var(--text-secondary)}
+/* ========== MEMORY MAP ========== */
+.memory-map{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:12px 0}
+.memory-cell{aspect-ratio:1;border-radius:4px;position:relative;cursor:pointer;
+  transition:transform .2s ease;display:flex;align-items:center;justify-content:center;font-size:9px}
+.memory-cell:active{transform:scale(0.85)}
+.memory-cell .tooltip{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);
+  background:var(--text-primary);color:var(--bg-primary);padding:4px 8px;border-radius:6px;
+  font-size:11px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+.memory-cell:hover .tooltip{opacity:1}
+/* ========== STREAK FREEZE ========== */
+.streak-freeze-badge{display:inline-flex;align-items:center;gap:4px;
+  padding:4px 10px;border-radius:8px;font-size:12px;font-weight:600;
+  background:rgba(52,120,246,0.1);color:var(--accent-secondary);border:0.5px solid rgba(52,120,246,0.2)}
+/* ========== SCENARIO DIALOGUE ========== */
+.dialogue-container{max-width:340px;margin:0 auto}
+.dialogue-bubble{padding:14px 18px;border-radius:var(--radius-md);margin-bottom:10px;
+  max-width:85%;font-size:15px;line-height:1.5;animation:fadeInUp .3s ease}
+.dialogue-npc{background:var(--bg-card);border:0.5px solid var(--border-color);
+  margin-right:auto;border-bottom-left-radius:4px}
+.dialogue-user{background:var(--accent-primary);color:#fff;
+  margin-left:auto;border-bottom-right-radius:4px}
+.dialogue-choices{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.dialogue-choice{padding:14px 18px;border-radius:var(--radius-md);
+  background:var(--bg-card);border:1.5px solid var(--border-color);
+  text-align:left;font-size:15px;transition:all .2s ease}
+.dialogue-choice:active{transform:scale(0.97);border-color:var(--accent-primary)}
+.dialogue-choice.correct{border-color:var(--accent-success);background:rgba(52,199,89,0.08)}
+.dialogue-choice.wrong{border-color:var(--accent-error);background:rgba(255,59,48,0.05)}
+.dialogue-choice .dc-ja{font-weight:600}
+.dialogue-choice .dc-zh{font-size:12px;color:var(--text-secondary);margin-top:2px}
+/* ========== HOME ========== */
 .greeting{font-size:32px;font-weight:700;margin-bottom:4px;letter-spacing:-0.03em}
 .greeting-sub{font-size:15px;color:var(--text-secondary);margin-bottom:24px;line-height:1.5}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
@@ -153,7 +232,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .mini-chart .bar.today{opacity:1}
 .chart-labels{display:flex;gap:6px;margin-top:6px}
 .chart-labels span{flex:1;text-align:center;font-size:10px;color:var(--text-hint)}
-/* ========== GOJUON: Clean, zen-like grid ========== */
+/* ========== GOJUON ========== */
 .gojuon-controls{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .gojuon-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:16px}
 .gojuon-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -168,7 +247,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .gojuon-cell.empty{visibility:hidden}
 .gojuon-row-label{grid-column:1/-1;font-size:13px;font-weight:600;color:var(--text-secondary);
   padding:12px 0 6px;letter-spacing:0.03em}
-/* ========== FLASHCARD: Centered focus, depth ========== */
+/* ========== FLASHCARD ========== */
 .flashcard-container{perspective:1200px;width:100%;max-width:300px;margin:24px auto}
 .flashcard{position:relative;width:100%;height:220px;
   transition:transform .7s cubic-bezier(0.34,1.56,0.64,1);
@@ -199,7 +278,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .quiz-option.wrong{border-color:var(--accent-error);background:rgba(255,59,48,0.08);color:var(--accent-error);
   box-shadow:0 0 0 3px rgba(255,59,48,0.12)}
 .quiz-feedback{text-align:center;margin-top:16px;font-size:16px;font-weight:600;min-height:24px}
-/* ========== VOCAB CARD: Premium depth, focus ========== */
+/* ========== VOCAB CARD ========== */
 .vocab-card-container{perspective:1200px;width:100%;max-width:340px;margin:20px auto;touch-action:pan-y}
 .vocab-card{position:relative;width:100%;min-height:260px;
   transition:transform .7s cubic-bezier(0.34,1.56,0.64,1);
@@ -220,7 +299,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .vocab-back .example{background:var(--bg-secondary);padding:10px;border-radius:var(--radius-sm);font-size:13px;line-height:1.6}
 .vocab-back .example .ja{font-weight:600}
 .vocab-back .example .zh{color:var(--text-secondary);margin-top:2px}
-/* ========== RATING: Clear, generous spacing ========== */
+/* ========== RATING ========== */
 .vocab-rating{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;max-width:340px;margin-left:auto;margin-right:auto}
 .rate-btn{padding:12px 4px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;color:#fff;text-align:center;
   transition:all .25s cubic-bezier(0.25,0.1,0.25,1)}
@@ -265,7 +344,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   background:var(--bg-card);border:2px solid var(--border-color);transition:border-color .2s ease}
 .typing-input:focus{border-color:var(--accent-primary)}
 .typing-feedback{text-align:center;margin-top:12px;font-size:15px;font-weight:600;min-height:24px}
-/* ========== SETTINGS: Clean, grouped, spacious ========== */
+/* ========== SETTINGS ========== */
 .settings-group{margin-bottom:28px}
 .settings-group-title{font-size:12px;color:var(--text-hint);font-weight:600;
   text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;padding-left:4px}
@@ -295,7 +374,7 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .version-info{text-align:center;color:var(--text-hint);font-size:11px;margin-top:28px;line-height:1.8;
   letter-spacing:0.02em}
 .file-input{display:none}
-/* ========== SOUND BUTTON: Subtle, premium ========== */
+/* ========== SOUND BUTTON ========== */
 .sound-btn{display:inline-flex;align-items:center;justify-content:center;
   width:40px;height:40px;border-radius:50%;
   background:var(--bg-glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
@@ -330,7 +409,6 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 .achievement-item .ach-icon{font-size:32px;margin-bottom:4px}
 .achievement-item .ach-name{font-size:11px;font-weight:600}
 .achievement-item .ach-desc{font-size:9px;color:var(--text-hint);margin-top:2px}
-/* ========== ACHIEVEMENT TOAST: Floating glass notification ========== */
 .achievement-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-120px);
   z-index:400;background:var(--bg-glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
   color:var(--text-primary);padding:14px 24px;
@@ -339,21 +417,16 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   transition:transform .6s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap}
 .achievement-toast.show{transform:translateX(-50%) translateY(0)}
 .achievement-toast .toast-icon{font-size:32px}
-/* Swipe indicator */
 .swipe-hint{text-align:center;font-size:12px;color:var(--text-hint);margin-top:8px}
-/* Error book */
 .error-card{padding:12px;background:var(--bg-card);border:1px solid var(--border-color);
   border-radius:var(--radius-sm);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .error-card .error-word{font-size:18px;font-weight:700}
 .error-card .error-info{font-size:12px;color:var(--text-secondary)}
 .error-card .error-count{font-size:11px;color:var(--accent-error);font-weight:600}
-/* Install prompt */
 .install-btn{width:100%;padding:14px;border-radius:var(--radius-sm);
   background:var(--accent-secondary);color:#fff;font-weight:600;font-size:15px;
   text-align:center;transition:all .2s ease;display:none}
 .install-btn:active{opacity:0.8}
-/* Writing practice */
-/* ========== WRITING: Zen, calligraphy feel ========== */
 .writing-grid{width:220px;height:220px;margin:24px auto;
   border:1px solid var(--border-color);
   border-radius:var(--radius-lg);position:relative;
@@ -366,15 +439,37 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
   font-size:130px;font-weight:200;color:var(--text-primary);
   transition:opacity .6s cubic-bezier(0.25,0.1,0.25,1)}
 .writing-char.dim{opacity:0.08}
+/* ========== CONFETTI ========== */
+.confetti-container{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:350;overflow:hidden}
+.confetti-piece{position:absolute;width:10px;height:10px;top:-10px;animation:confetti 1.5s ease forwards}
 </style>
 </head>
 <body>
+<!-- Onboarding overlay (shown first time only) -->
+<div class="onboarding-overlay" id="onboarding" style="display:none">
+  <div class="onboard-mascot" id="onboard-mascot">🦊</div>
+  <div class="onboard-title" id="onboard-title"></div>
+  <div class="onboard-desc" id="onboard-desc"></div>
+  <div class="onboard-dots" id="onboard-dots"></div>
+  <button class="btn btn-primary" id="onboard-btn" style="min-width:200px"></button>
+</div>
+<!-- Session start ritual -->
+<div class="session-start" id="session-start">
+  <div class="session-breathe"><div class="session-breathe-inner"></div></div>
+  <div style="margin-top:24px;font-size:20px;font-weight:600" id="session-msg">準備好了嗎？</div>
+  <div style="margin-top:8px;font-size:14px;color:var(--text-secondary)" id="session-sub"></div>
+</div>
+<!-- WebView banner -->
 <div class="webview-banner" id="webview-banner" style="display:none;flex-wrap:wrap">
   <div class="banner-text">🔇 無法播放聲音，請點右上 ⋮ 選「在瀏覽器中開啟」</div>
   <button class="banner-btn" id="copy-url-btn" onclick="navigator.clipboard.writeText(location.href).then(()=>{this.textContent='✅ 已複製'}).catch(()=>{prompt('複製此網址到瀏覽器開啟：',location.href)})">複製網址</button>
   <button class="banner-close" onclick="document.getElementById('webview-banner').style.display='none';document.querySelectorAll('.page').forEach(p=>p.style.paddingTop='')">✕</button>
 </div>
+<!-- Achievement toast -->
 <div class="achievement-toast" id="ach-toast"><span class="toast-icon"></span><span class="toast-text"></span></div>
+<!-- Confetti container -->
+<div class="confetti-container" id="confetti-box"></div>
+<!-- App -->
 <div id="app">
 <div class="page active" id="page-home"><div id="home-content"></div></div>
 <div class="page" id="page-gojuon">
@@ -542,7 +637,7 @@ const VOCAB=[
 {id:78,w:"万",rd:"まん",ro:"man",m:"萬",pos:"數詞",cat:"num",ex:{ja:"一万円。",rd:"いちまんえん。",zh:"一萬日圓。"}},
 {id:79,w:"円",rd:"えん",ro:"en",m:"日圓",pos:"名詞",cat:"num",ex:{ja:"五百円です。",rd:"ごひゃくえんです。",zh:"五百日圓。"}},
 {id:80,w:"個",rd:"こ",ro:"ko",m:"個(量詞)",pos:"量詞",cat:"num",ex:{ja:"三個ください。",rd:"さんこください。",zh:"請給我三個。"}},
-// ===== NEW: 食べ物 10 =====
+// ===== 食べ物 10 =====
 {id:81,w:"ご飯",rd:"ごはん",ro:"gohan",m:"飯;餐",pos:"名詞",cat:"food",ex:{ja:"ご飯を食べましょう。",rd:"ごはんをたべましょう。",zh:"一起吃飯吧。"}},
 {id:82,w:"肉",rd:"にく",ro:"niku",m:"肉",pos:"名詞",cat:"food",ex:{ja:"肉が好きです。",rd:"にくがすきです。",zh:"喜歡吃肉。"}},
 {id:83,w:"魚",rd:"さかな",ro:"sakana",m:"魚",pos:"名詞",cat:"food",ex:{ja:"魚を焼く。",rd:"さかなをやく。",zh:"烤魚。"}},
@@ -553,25 +648,25 @@ const VOCAB=[
 {id:88,w:"牛乳",rd:"ぎゅうにゅう",ro:"gyuunyuu",m:"牛奶",pos:"名詞",cat:"food",ex:{ja:"牛乳を飲む。",rd:"ぎゅうにゅうをのむ。",zh:"喝牛奶。"}},
 {id:89,w:"お茶",rd:"おちゃ",ro:"ocha",m:"茶",pos:"名詞",cat:"food",ex:{ja:"お茶をどうぞ。",rd:"おちゃをどうぞ。",zh:"請喝茶。"}},
 {id:90,w:"コーヒー",rd:"こーひー",ro:"koohii",m:"咖啡",pos:"名詞",cat:"food",ex:{ja:"コーヒーを一杯ください。",rd:"こーひーをいっぱいください。",zh:"請給我一杯咖啡。"}},
-// ===== NEW: 色 5 =====
+// ===== 色 5 =====
 {id:91,w:"赤",rd:"あか",ro:"aka",m:"紅色",pos:"名詞",cat:"color",ex:{ja:"赤い花が咲いた。",rd:"あかいはながさいた。",zh:"紅色的花開了。"}},
 {id:92,w:"青",rd:"あお",ro:"ao",m:"藍色",pos:"名詞",cat:"color",ex:{ja:"空は青い。",rd:"そらはあおい。",zh:"天空是藍色的。"}},
 {id:93,w:"白",rd:"しろ",ro:"shiro",m:"白色",pos:"名詞",cat:"color",ex:{ja:"白い雲が見える。",rd:"しろいくもがみえる。",zh:"看得到白色的雲。"}},
 {id:94,w:"黒",rd:"くろ",ro:"kuro",m:"黑色",pos:"名詞",cat:"color",ex:{ja:"黒い猫がいる。",rd:"くろいねこがいる。",zh:"有一隻黑貓。"}},
 {id:95,w:"黄色",rd:"きいろ",ro:"kiiro",m:"黃色",pos:"名詞",cat:"color",ex:{ja:"黄色い花が好き。",rd:"きいろいはながすき。",zh:"喜歡黃色的花。"}},
-// ===== NEW: 自然 5 =====
+// ===== 自然 5 =====
 {id:96,w:"山",rd:"やま",ro:"yama",m:"山",pos:"名詞",cat:"nature",ex:{ja:"山に登る。",rd:"やまにのぼる。",zh:"爬山。"}},
 {id:97,w:"海",rd:"うみ",ro:"umi",m:"海",pos:"名詞",cat:"nature",ex:{ja:"海で泳ぐ。",rd:"うみでおよぐ。",zh:"在海裡游泳。"}},
 {id:98,w:"川",rd:"かわ",ro:"kawa",m:"河",pos:"名詞",cat:"nature",ex:{ja:"川で魚を釣る。",rd:"かわでさかなをつる。",zh:"在河裡釣魚。"}},
 {id:99,w:"花",rd:"はな",ro:"hana",m:"花",pos:"名詞",cat:"nature",ex:{ja:"花が咲いている。",rd:"はながさいている。",zh:"花正在開。"}},
 {id:100,w:"空",rd:"そら",ro:"sora",m:"天空",pos:"名詞",cat:"nature",ex:{ja:"空がきれいだ。",rd:"そらがきれいだ。",zh:"天空很美。"}},
-// ===== NEW: 体 5 =====
+// ===== 体 5 =====
 {id:101,w:"目",rd:"め",ro:"me",m:"眼睛",pos:"名詞",cat:"body",ex:{ja:"目が大きい。",rd:"めがおおきい。",zh:"眼睛很大。"}},
 {id:102,w:"耳",rd:"みみ",ro:"mimi",m:"耳朵",pos:"名詞",cat:"body",ex:{ja:"耳が痛い。",rd:"みみがいたい。",zh:"耳朵痛。"}},
 {id:103,w:"口",rd:"くち",ro:"kuchi",m:"嘴巴",pos:"名詞",cat:"body",ex:{ja:"口を開ける。",rd:"くちをあける。",zh:"張開嘴巴。"}},
 {id:104,w:"手",rd:"て",ro:"te",m:"手",pos:"名詞",cat:"body",ex:{ja:"手を洗う。",rd:"てをあらう。",zh:"洗手。"}},
 {id:105,w:"足",rd:"あし",ro:"ashi",m:"腳",pos:"名詞",cat:"body",ex:{ja:"足が速い。",rd:"あしがはやい。",zh:"跑得快。"}},
-// ===== NEW: 動詞2 10 =====
+// ===== 動詞2 10 =====
 {id:106,w:"作る",rd:"つくる",ro:"tsukuru",m:"製作",pos:"動詞I",cat:"verb2",ex:{ja:"料理を作る。",rd:"りょうりをつくる。",zh:"做料理。"}},
 {id:107,w:"使う",rd:"つかう",ro:"tsukau",m:"使用",pos:"動詞I",cat:"verb2",ex:{ja:"パソコンを使う。",rd:"ぱそこんをつかう。",zh:"使用電腦。"}},
 {id:108,w:"待つ",rd:"まつ",ro:"matsu",m:"等待",pos:"動詞I",cat:"verb2",ex:{ja:"ここで待つ。",rd:"ここでまつ。",zh:"在這裡等。"}},
@@ -582,7 +677,7 @@ const VOCAB=[
 {id:113,w:"遊ぶ",rd:"あそぶ",ro:"asobu",m:"玩",pos:"動詞I",cat:"verb2",ex:{ja:"友達と遊ぶ。",rd:"ともだちとあそぶ。",zh:"和朋友玩。"}},
 {id:114,w:"泳ぐ",rd:"およぐ",ro:"oyogu",m:"游泳",pos:"動詞I",cat:"verb2",ex:{ja:"プールで泳ぐ。",rd:"ぷーるでおよぐ。",zh:"在游泳池游泳。"}},
 {id:115,w:"走る",rd:"はしる",ro:"hashiru",m:"跑",pos:"動詞I",cat:"verb2",ex:{ja:"毎朝走る。",rd:"まいあさはしる。",zh:"每天早上跑步。"}},
-// ===== NEW: 副詞 5 =====
+// ===== 副詞 5 =====
 {id:116,w:"とても",rd:"とても",ro:"totemo",m:"非常",pos:"副詞",cat:"adverb",ex:{ja:"とても美味しい。",rd:"とてもおいしい。",zh:"非常好吃。"}},
 {id:117,w:"もう",rd:"もう",ro:"mou",m:"已經",pos:"副詞",cat:"adverb",ex:{ja:"もう食べました。",rd:"もうたべました。",zh:"已經吃了。"}},
 {id:118,w:"まだ",rd:"まだ",ro:"mada",m:"還;尚未",pos:"副詞",cat:"adverb",ex:{ja:"まだ終わっていない。",rd:"まだおわっていない。",zh:"還沒結束。"}},
@@ -590,11 +685,110 @@ const VOCAB=[
 {id:120,w:"たくさん",rd:"たくさん",ro:"takusan",m:"很多",pos:"副詞",cat:"adverb",ex:{ja:"たくさん食べた。",rd:"たくさんたべた。",zh:"吃了很多。"}}
 ];
 
+// ================================================================
+// DATA: 每日一句 & 場景對話 & 鼓勵語
+// ================================================================
+const DAILY_SENTENCES=[
+{ja:"一期一会",rd:"いちごいちえ",zh:"一期一會（珍惜每次相遇）",note:"茶道精神"},
+{ja:"花より団子",rd:"はなよりだんご",zh:"比起賞花更想吃糰子（實際比浪漫重要）",note:"諺語"},
+{ja:"猿も木から落ちる",rd:"さるもきからおちる",zh:"猴子也會從樹上掉下來（智者千慮必有一失）",note:"諺語"},
+{ja:"七転び八起き",rd:"ななころびやおき",zh:"跌倒七次站起來八次（永不放棄）",note:"人生哲學"},
+{ja:"雨降って地固まる",rd:"あめふってじかたまる",zh:"雨後地更堅實（經歷困難後更堅強）",note:"諺語"},
+{ja:"明日は明日の風が吹く",rd:"あしたはあしたのかぜがふく",zh:"明天自有明天的風（船到橋頭自然直）",note:"生活智慧"},
+{ja:"笑う門には福来る",rd:"わらうかどにはふくきたる",zh:"笑口常開，福氣自來",note:"諺語"},
+{ja:"塵も積もれば山となる",rd:"ちりもつもればやまとなる",zh:"積少成多（每天學一點也很厲害！）",note:"鼓勵"},
+{ja:"石の上にも三年",rd:"いしのうえにもさんねん",zh:"坐石頭上也要三年（堅持就會有結果）",note:"毅力"},
+{ja:"井の中の蛙大海を知らず",rd:"いのなかのかわずたいかいをしらず",zh:"井底之蛙不知大海",note:"視野"},
+{ja:"案ずるより産むが易し",rd:"あんずるよりうむがやすし",zh:"與其擔心不如行動（做了比想像中簡單）",note:"行動力"},
+{ja:"継続は力なり",rd:"けいぞくはちからなり",zh:"持續就是力量",note:"學習精神"},
+{ja:"千里の道も一歩から",rd:"せんりのみちもいっぽから",zh:"千里之行始於足下",note:"鼓勵"},
+{ja:"習うより慣れろ",rd:"ならうよりなれろ",zh:"與其學不如多練習",note:"學習方法"},
+{ja:"失敗は成功のもと",rd:"しっぱいはせいこうのもと",zh:"失敗為成功之母",note:"鼓勵"},
+{ja:"急がば回れ",rd:"いそがばまわれ",zh:"欲速則不達",note:"智慧"},
+{ja:"郷に入っては郷に従え",rd:"ごうにいってはごうにしたがえ",zh:"入境隨俗",note:"文化"},
+{ja:"時は金なり",rd:"ときはかねなり",zh:"時間就是金錢",note:"價值觀"},
+{ja:"百聞は一見に如かず",rd:"ひゃくぶんはいっけんにしかず",zh:"百聞不如一見",note:"經驗"},
+{ja:"頑張ってください",rd:"がんばってください",zh:"請加油！",note:"應援"},
+{ja:"お疲れ様でした",rd:"おつかれさまでした",zh:"辛苦了",note:"職場用語"},
+{ja:"いただきます",rd:"いただきます",zh:"我開動了（用餐前說）",note:"飲食禮儀"},
+{ja:"ごちそうさまでした",rd:"ごちそうさまでした",zh:"多謝款待（用餐後說）",note:"飲食禮儀"},
+{ja:"よろしくお願いします",rd:"よろしくおねがいします",zh:"請多多指教",note:"初次見面"},
+{ja:"気をつけてね",rd:"きをつけてね",zh:"路上小心喔",note:"關心語"},
+{ja:"大丈夫ですか",rd:"だいじょうぶですか",zh:"你還好嗎？",note:"關心語"},
+{ja:"一緒に頑張ろう",rd:"いっしょにがんばろう",zh:"一起加油吧！",note:"鼓勵"},
+{ja:"夢を追いかけよう",rd:"ゆめをおいかけよう",zh:"去追逐夢想吧",note:"勵志"},
+{ja:"今日もいい一日を",rd:"きょうもいいいちにちを",zh:"今天也要有美好的一天",note:"祝福"},
+{ja:"ありのままで",rd:"ありのままで",zh:"做你自己就好",note:"鼓勵"}
+];
+
+const SCENARIOS=[
+{id:"konbini",title:"🏪 便利商店",desc:"在便利商店買東西",dialogues:[
+  {npc:"いらっしゃいませ！",npc_zh:"歡迎光臨！"},
+  {prompt:"你想買飯糰，該怎麼說？",choices:[
+    {ja:"おにぎりを一つください。",zh:"請給我一個飯糰。",correct:true},
+    {ja:"おにぎりがあります。",zh:"有飯糰。",correct:false},
+    {ja:"おにぎりは何ですか。",zh:"飯糰是什麼？",correct:false}
+  ]},
+  {npc:"はい、百円です。",npc_zh:"好的，一百圓。"},
+  {prompt:"付完錢後，店員說「ありがとうございました」，你要怎麼回應？",choices:[
+    {ja:"ありがとうございます。",zh:"謝謝。",correct:true},
+    {ja:"すみません。",zh:"不好意思。",correct:false},
+    {ja:"さようなら。",zh:"再見。",correct:false}
+  ]}
+]},
+{id:"eki",title:"🚉 問路",desc:"在車站問路",dialogues:[
+  {prompt:"你想問車站在哪裡，該怎麼說？",choices:[
+    {ja:"すみません、駅はどこですか。",zh:"不好意思，車站在哪裡？",correct:true},
+    {ja:"駅に行きます。",zh:"我去車站。",correct:false},
+    {ja:"駅が好きです。",zh:"我喜歡車站。",correct:false}
+  ]},
+  {npc:"まっすぐ行って、右に曲がってください。",npc_zh:"直走然後右轉。"},
+  {prompt:"你想表達感謝，該怎麼說？",choices:[
+    {ja:"ありがとうございます。",zh:"非常感謝。",correct:true},
+    {ja:"お願いします。",zh:"拜託了。",correct:false},
+    {ja:"はい、わかりました。",zh:"是的，我知道了。",correct:false}
+  ]}
+]},
+{id:"restaurant",title:"🍜 餐廳",desc:"在餐廳點餐",dialogues:[
+  {npc:"いらっしゃいませ。何名様ですか。",npc_zh:"歡迎光臨。請問幾位？"},
+  {prompt:"你是一個人來用餐，該怎麼說？",choices:[
+    {ja:"一人です。",zh:"一個人。",correct:true},
+    {ja:"一つください。",zh:"請給我一個。",correct:false},
+    {ja:"友達です。",zh:"是朋友。",correct:false}
+  ]},
+  {npc:"こちらへどうぞ。メニューです。",npc_zh:"這邊請。這是菜單。"},
+  {prompt:"你看完菜單想點拉麵，該怎麼說？",choices:[
+    {ja:"ラーメンをお願いします。",zh:"麻煩給我拉麵。",correct:true},
+    {ja:"ラーメンがあります。",zh:"有拉麵。",correct:false},
+    {ja:"ラーメンは美味しいです。",zh:"拉麵很好吃。",correct:false}
+  ]}
+]},
+{id:"jikoshoukai",title:"🙋 自我介紹",desc:"第一次見面自我介紹",dialogues:[
+  {npc:"はじめまして。田中です。",npc_zh:"初次見面。我是田中。"},
+  {prompt:"你想自我介紹，該怎麼說？",choices:[
+    {ja:"はじめまして。私は○○です。よろしくお願いします。",zh:"初次見面。我是○○。請多多指教。",correct:true},
+    {ja:"こんにちは。元気ですか。",zh:"你好。你好嗎？",correct:false},
+    {ja:"ありがとうございます。",zh:"非常感謝。",correct:false}
+  ]},
+  {npc:"どちらから来ましたか。",npc_zh:"你從哪裡來的？"},
+  {prompt:"你想說你來自台灣，該怎麼說？",choices:[
+    {ja:"台湾から来ました。",zh:"我從台灣來的。",correct:true},
+    {ja:"台湾に行きます。",zh:"我要去台灣。",correct:false},
+    {ja:"台湾が好きです。",zh:"我喜歡台灣。",correct:false}
+  ]}
+]}
+];
+
 const ENCOURAGE={
-correct:["すごい！(好厲害！)","正解！よくできました！","完璧！(完美！)","その調子！(就是這樣！)","素晴らしい！(太棒了！)","天才だ！(你是天才！)"],
-wrong:["大丈夫！もう一回！(沒關係！)","惜しい！(好可惜！)","間違いは学びの始まり(犯錯是學習的開始)","ドンマイ！(Don't mind!)","次は絶対できる！(下次一定行！)"],
-completion:["今日もお疲れ様！(今天也辛苦了！)","毎日の努力が大切！(每天的努力都很重要！)","一歩一歩、前進しよう！(一步一步向前！)","継続は力なり！(持續就是力量！)"],
-streak:{3:"3日連続！いい感じ！",7:"一週間連続！すごい！",14:"二週間！本当に偉い！",30:"一ヶ月！あなたは本物だ！"}
+correct:["すごい！(好厲害！)","正解！よくできました！","完璧！(完美！)","その調子！(就是這樣！)","素晴らしい！(太棒了！)","天才だ！(你是天才！)","やった！(太好了！)","さすが！(不愧是你！)"],
+wrong:["大丈夫！もう一回！(沒關係！)","惜しい！(好可惜！)","間違いは学びの始まり(犯錯是學習的開始)","ドンマイ！(Don't mind!)","次は絶対できる！(下次一定行！)","焦らなくていいよ(不用急喔)","一歩ずつ行こう(一步步來)"],
+completion:["今日もお疲れ様！(今天也辛苦了！)","毎日の努力が大切！(每天的努力都很重要！)","一歩一歩、前進しよう！(一步一步向前！)","継続は力なり！(持續就是力量！)","素敵な一日でした！(美好的一天！)"],
+streak:{3:"3日連続！いい感じ！🔥",7:"一週間連続！すごい！⭐",14:"二週間！本当に偉い！💪",30:"一ヶ月！あなたは本物だ！👑",60:"二ヶ月！伝説になりつつある！🏆",100:"百日連続！まさに達人！🐉"},
+comeback:["おかえり！また会えて嬉しい！🦊","久しぶり！一緒に頑張ろう！","戻ってきてくれてありがとう！💛"]
+};
+
+const MASCOT_STATES={
+default:"🦊",happy:"😸",excited:"🎉",thinking:"🤔",sleeping:"😴",cheering:"💪",studying:"📖",celebrating:"🥳",worried:"😟",proud:"🌟"
 };
 
 // ================================================================
@@ -628,7 +822,6 @@ nextInterval(s){
   const iv=s/this.FACTOR*(Math.pow(this.requestRetention,1/this.DECAY)-1);
   return Math.min(Math.max(Math.round(iv),1),this.maximumInterval)},
 newCard(){return{difficulty:0,stability:0,reps:0,nextReview:today(),lastReview:null,totalReviews:0,correctCount:0,wrongCount:0}},
-// rating: 1=Again, 2=Hard, 3=Good, 4=Easy
 review(card,rating){
   const now=today();const elapsed=card.lastReview?Math.max(0,daysBetween(card.lastReview,now)):0;
   let d,s;
@@ -642,15 +835,18 @@ review(card,rating){
     lastReview:now,totalReviews:(card.totalReviews||0)+1,
     correctCount:(card.correctCount||0)+(rating>=2?1:0),
     wrongCount:(card.wrongCount||0)+(rating<2?1:0)}},
-getDue(){const d=Store.load();const t=today();const due=[];
+getDue(maxReviews){const d=Store.load();const t=today();const due=[];
   for(const[id,p]of Object.entries(d.vocab)){if(p.nextReview<=t)due.push({id:+id,...p})}
-  due.sort((a,b)=>a.nextReview.localeCompare(b.nextReview));return due},
+  due.sort((a,b)=>a.nextReview.localeCompare(b.nextReview));
+  // Smart review cap - prevent burnout (Anki's #1 problem)
+  const cap=maxReviews||d.settings.reviewCap||50;
+  return due.slice(0,cap)},
 getNew(limit=5){const d=Store.load();const learned=new Set(Object.keys(d.vocab));
   return VOCAB.filter(v=>!learned.has(String(v.id))).slice(0,limit)}
 };
 
 // ================================================================
-// CORE: Achievements
+// CORE: Achievements (expanded)
 // ================================================================
 const Achievements={
 list:[
@@ -662,11 +858,14 @@ list:[
   {id:'streak3',icon:'🔥',name:'三日坊主突破',desc:'連續學習3天',check:d=>d.streak.current>=3},
   {id:'streak7',icon:'⭐',name:'一週達人',desc:'連續學習7天',check:d=>d.streak.current>=7},
   {id:'streak30',icon:'💎',name:'月間勇者',desc:'連續學習30天',check:d=>d.streak.current>=30},
+  {id:'streak100',icon:'🐉',name:'百日傳說',desc:'連續學習100天',check:d=>d.streak.current>=100},
   {id:'perfect_quiz',icon:'💯',name:'完美答題',desc:'測驗得到100%',check:d=>d.quizHistory.some(q=>q.correctAnswers===q.totalQuestions&&q.totalQuestions>=5)},
   {id:'all_kana',icon:'🏯',name:'五十音達人',desc:'掌握全部假名',check:d=>Object.values(d.gojuon).filter(g=>g.mastered).length>=ALL_KANA.length},
   {id:'night_owl',icon:'🦉',name:'夜貓學霸',desc:'晚上11點後學習',check:()=>new Date().getHours()>=23},
   {id:'early_bird',icon:'🐦',name:'早起鳥',desc:'早上6點前學習',check:()=>new Date().getHours()<6},
   {id:'quiz_master',icon:'🏆',name:'測驗大師',desc:'完成20次測驗',check:d=>d.quizHistory.length>=20},
+  {id:'scenario_first',icon:'🗣️',name:'對話新手',desc:'完成第一個場景對話',check:d=>(d.scenariosDone||[]).length>=1},
+  {id:'scenario_all',icon:'🌍',name:'實戰達人',desc:'完成所有場景對話',check:d=>(d.scenariosDone||[]).length>=SCENARIOS.length},
 ],
 check(d){
   if(!d.achievements)d.achievements=[];
@@ -684,7 +883,22 @@ showToast(a){
 };
 
 // ================================================================
-// CORE: StorageManager (with SM-2 migration)
+// CORE: Confetti (session completion celebration)
+// ================================================================
+function showConfetti(){
+  const box=document.getElementById('confetti-box');
+  const colors=['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#FF6FB5','#C780FF'];
+  let html='';
+  for(let i=0;i<40;i++){
+    const c=colors[i%colors.length];const l=Math.random()*100;const d=Math.random()*1+0.5;
+    const sz=Math.random()*8+6;const rot=Math.random()*360;
+    html+=`<div class="confetti-piece" style="left:${l}%;animation-delay:${d*0.3}s;animation-duration:${d+1}s;width:${sz}px;height:${sz}px;background:${c};transform:rotate(${rot}deg);border-radius:${Math.random()>0.5?'50%':'2px'}"></div>`;
+  }
+  box.innerHTML=html;setTimeout(()=>box.innerHTML='',3000);
+}
+
+// ================================================================
+// CORE: StorageManager (with migration + streak freeze + onboarding)
 // ================================================================
 const Store={
 KEY:"nihongo_app_v2",
@@ -694,8 +908,7 @@ load(){
   if(this._cache)return this._cache;
   try{
     let r=localStorage.getItem(this.KEY);
-    if(r){this._cache=JSON.parse(r);if(this._checkToday())this.save();return this._cache}
-    // Try migrate from v1
+    if(r){this._cache=JSON.parse(r);this._ensureFields();if(this._checkToday())this.save();return this._cache}
     r=localStorage.getItem(this.OLD_KEY);
     if(r){this._cache=this._migrate(JSON.parse(r));this.save();return this._cache}
   }catch(e){}
@@ -705,15 +918,24 @@ save(d){if(d)this._cache=d;if(!this._cache)return;this._cache.lastActiveAt=new D
     if(this._cache.quizHistory.length>30)this._cache.quizHistory=this._cache.quizHistory.slice(-30);
     localStorage.setItem(this.KEY,JSON.stringify(this._cache))}},
 debounce(){clearTimeout(this._timer);this._timer=setTimeout(()=>this.save(),300)},
+_ensureFields(){
+  const d=this._cache;
+  if(!d.streakFreezes)d.streakFreezes=2;
+  if(!d.onboardingDone)d.onboardingDone=false;
+  if(!d.scenariosDone)d.scenariosDone=[];
+  if(!d.settings.reviewCap)d.settings.reviewCap=50;
+  if(!d.errorBook)d.errorBook=[];
+  if(!d.achievements)d.achievements=[];
+},
 _checkToday(){const d=this._cache;const t=today();if(d.todayStats.date!==t){d.todayStats={date:t,newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0};return true}return false},
 _migrate(old){
-  // Migrate SM-2 vocab data to FSRS format
   const d=this._default();
   d.gojuon=old.gojuon||{};
   d.quizHistory=old.quizHistory||[];
   d.streak=old.streak||d.streak;
   d.settings={...d.settings,...(old.settings||{})};
   d.achievements=old.achievements||[];
+  d.onboardingDone=true; // skip onboarding for migrated users
   if(old.vocab){
     for(const[id,card]of Object.entries(old.vocab)){
       if(card.easeFactor!==undefined){
@@ -725,14 +947,27 @@ _migrate(old){
     }
   }
   return d},
-_default(){return{version:"2.0.0",createdAt:new Date().toISOString(),lastActiveAt:new Date().toISOString(),
-  settings:{theme:"auto",gojuonMode:"hiragana",dailyGoal:20,soundEnabled:true},
+_default(){return{version:"3.0.0",createdAt:new Date().toISOString(),lastActiveAt:new Date().toISOString(),
+  settings:{theme:"auto",gojuonMode:"hiragana",dailyGoal:15,soundEnabled:true,reviewCap:50},
   streak:{current:0,longest:0,lastStudyDate:null,history:[]},
+  streakFreezes:2,onboardingDone:false,scenariosDone:[],
   gojuon:{},vocab:{},quizHistory:[],achievements:[],errorBook:[],
   todayStats:{date:today(),newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0}}},
 updateStreak(){const d=this.load();const t=today();const y=yesterday();
   if(d.streak.lastStudyDate===t)return;
-  if(d.streak.lastStudyDate===y){d.streak.current++}else if(d.streak.lastStudyDate!==t){d.streak.current=1}
+  if(d.streak.lastStudyDate===y){d.streak.current++}
+  else if(d.streak.lastStudyDate!==t){
+    // Check if we can use a streak freeze
+    const missed=d.streak.lastStudyDate?daysBetween(d.streak.lastStudyDate,t):999;
+    if(missed===2&&d.streakFreezes>0&&d.streak.current>0){
+      d.streakFreezes--;d.streak.current++;
+      // Show streak saved notification
+      setTimeout(()=>{const t=document.getElementById('ach-toast');
+        t.querySelector('.toast-icon').textContent='🧊';
+        t.querySelector('.toast-text').textContent=`免死金牌救回了你的連續記錄！(剩${d.streakFreezes}個)`;
+        t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)},500);
+    }else{d.streak.current=1}
+  }
   d.streak.longest=Math.max(d.streak.longest,d.streak.current);d.streak.lastStudyDate=t;
   const h=d.streak.history;const last=h[h.length-1];if(last&&last.date===t){last.count++}else{h.push({date:t,count:1});if(h.length>60)h.shift()}
   this.save();Achievements.check(d)},
@@ -745,7 +980,7 @@ addError(vocabId,userAns,correctAns){
   this.save()},
 exportData(){const b=new Blob([JSON.stringify(this.load(),null,2)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="nihongo_backup_"+today()+".json";a.click();URL.revokeObjectURL(a.href)},
-importData(json){try{const d=JSON.parse(json);if(d.version){this._cache=d;this.save();return true}}catch(e){}return false},
+importData(json){try{const d=JSON.parse(json);if(d.version){this._cache=d;this._ensureFields();this.save();return true}}catch(e){}return false},
 reset(){this._cache=this._default();this.save()}
 };
 
@@ -785,7 +1020,7 @@ init(){const s=Store.load().settings.theme;
     m.addEventListener("change",e=>{if(Store.load().settings.theme==="auto")this.apply(e.matches?"dark":"light")})}
   else this.apply(s)},
 apply(t){document.documentElement.setAttribute("data-theme",t);
-  const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dark"?"#1A1A2E":"#FAFAF8"},
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dark"?"#000000":"#F7F6F3"},
 set(t){const d=Store.load();d.settings.theme=t;Store.save();if(t==="auto"){const m=window.matchMedia("(prefers-color-scheme:dark)");this.apply(m.matches?"dark":"light")}else this.apply(t)}
 };
 
@@ -803,9 +1038,6 @@ _load(n){switch(n){case"home":Home.render();break;case"gojuon":Gojuon.render();b
   case"vocab":VocabMod.init();break;case"quiz":Quiz.init();break;case"settings":Settings.render();break}}
 };
 
-// ================================================================
-// CORE: Swipe Handler
-// ================================================================
 const Swipe={
 attach(el,opts){
   let sx,sy,dx,dy;
@@ -820,12 +1052,76 @@ attach(el,opts){
 };
 
 // ================================================================
-// MODULE: Home Dashboard
+// MODULE: Onboarding (First-time user experience)
+// ================================================================
+const Onboarding={
+steps:[
+  {mascot:"🦊",title:"ようこそ！歡迎！",desc:"我是小狐，你的日語學習夥伴。我會陪你一起學習，不用擔心，我們慢慢來！",btn:"認識你很高興！"},
+  {mascot:"📚",title:"每天 5 分鐘就好",desc:"不用一次學很多。每天花 5 分鐘，用科學的間隔重複法，比苦讀 1 小時更有效！",btn:"聽起來不錯"},
+  {mascot:"🎯",title:"準備好了嗎？",desc:"從五十音開始，到 120 個 N5 單字，再到真實場景對話。你的日語冒險，現在開始！",btn:"開始學習！🚀"}
+],
+step:0,
+show(){
+  const d=Store.load();
+  if(d.onboardingDone)return;
+  this.step=0;
+  const el=document.getElementById('onboarding');
+  el.style.display='flex';
+  this.render()},
+render(){
+  const s=this.steps[this.step];
+  document.getElementById('onboard-mascot').textContent=s.mascot;
+  document.getElementById('onboard-title').textContent=s.title;
+  document.getElementById('onboard-desc').textContent=s.desc;
+  document.getElementById('onboard-btn').textContent=s.btn;
+  const dots=document.getElementById('onboard-dots');
+  dots.innerHTML=this.steps.map((_,i)=>`<div class="onboard-dot${i===this.step?' active':''}"></div>`).join('');
+},
+next(){
+  this.step++;
+  if(this.step>=this.steps.length){
+    const d=Store.load();d.onboardingDone=true;Store.save();
+    const el=document.getElementById('onboarding');
+    el.classList.add('hiding');
+    setTimeout(()=>{el.style.display='none';el.classList.remove('hiding')},500);
+    return;
+  }
+  this.render();
+}
+};
+
+// ================================================================
+// MODULE: Session Ritual (Headspace-inspired)
+// ================================================================
+const SessionRitual={
+show(type,callback){
+  const el=document.getElementById('session-start');
+  const msg=document.getElementById('session-msg');
+  const sub=document.getElementById('session-sub');
+  const h=new Date().getHours();
+  const d=Store.load();
+  const due=FSRS.getDue().length;
+  const greet=h<6?"夜深了，辛苦你了 🌙":h<12?"おはよう！新的一天 ☀️":h<18?"午後の学習タイム 🍵":"晚上好，放鬆學習 🌇";
+  msg.textContent=greet;
+  if(type==='vocab'){
+    sub.textContent=due>0?`今天有 ${due} 個單字等你複習`:'準備學習新單字';
+  }else if(type==='quiz'){
+    sub.textContent='深呼吸...集中注意力';
+  }else{
+    sub.textContent='讓我們開始吧';
+  }
+  el.classList.add('show');
+  setTimeout(()=>{el.classList.remove('show');if(callback)callback()},1800);
+}
+};
+
+// ================================================================
+// MODULE: Home Dashboard (with Daily Sentence, Memory Map, Mascot)
 // ================================================================
 const Home={
 render(){
   const d=Store.load();const h=new Date().getHours();
-  const gr=h<12?"おはようございます":h<18?"こんにちは":"こんばんは";
+  const gr=h<6?"夜更かしさん！🌙":h<12?"おはようございます ☀️":h<18?"こんにちは 🌸":"こんばんは 🌙";
   const due=FSRS.getDue().length;const nw=FSRS.getNew(d.settings.dailyGoal).length;
   const learned=Object.keys(d.vocab).length;const total=VOCAB.length;
   const mastered=Object.values(d.vocab).filter(v=>v.reps>=3&&v.difficulty<5).length;
@@ -837,18 +1133,49 @@ render(){
   const days=["日","一","二","三","四","五","六"];
   let streakMsg="";
   for(const[k,v]of Object.entries(ENCOURAGE.streak).reverse()){if(d.streak.current>=+k){streakMsg=v;break}}
+  // Mascot state based on user status
+  const mascotState=pct>=100?MASCOT_STATES.celebrating:d.streak.current>=7?MASCOT_STATES.proud:
+    prog>0?MASCOT_STATES.happy:h>=23?MASCOT_STATES.sleeping:MASCOT_STATES.default;
+  // Daily sentence
+  const dayOfYear=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
+  const ds=DAILY_SENTENCES[dayOfYear%DAILY_SENTENCES.length];
   // Error book count
   const errCount=(d.errorBook||[]).length;
+  // Comeback message
+  let comebackMsg='';
+  if(d.streak.lastStudyDate&&d.streak.lastStudyDate!==today()){
+    const missed=daysBetween(d.streak.lastStudyDate,today());
+    if(missed>=3)comebackMsg=pick(ENCOURAGE.comeback);
+  }
+  // Streak freeze info
+  const freezeInfo=d.streakFreezes>0?`<span class="streak-freeze-badge">🧊 免死金牌 ×${d.streakFreezes}</span>`:'';
+
   document.getElementById("home-content").innerHTML=`
-    <div class="greeting">${gr}</div>
-    <div class="greeting-sub">${d.streak.current>0?`連續學習第 ${d.streak.current} 天 🔥`:"開始你的日語學習之旅吧！"}</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+      <div>
+        <div class="greeting">${gr}</div>
+        <div class="greeting-sub">${d.streak.current>0?`連續學習第 ${d.streak.current} 天 🔥 ${freezeInfo}`:"開始你的日語學習之旅吧！"}</div>
+      </div>
+      <div class="mascot mascot-md anim-float">${mascotState}</div>
+    </div>
+    ${comebackMsg?`<div class="card" style="margin-bottom:12px;text-align:center;padding:16px">
+      <div style="font-size:24px;margin-bottom:8px">🦊</div>
+      <div style="font-size:15px;font-weight:600">${comebackMsg}</div>
+    </div>`:''}
     ${streakMsg?`<div style="background:var(--accent-warning);color:#fff;padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;margin-bottom:12px;text-align:center">${streakMsg}</div>`:""}
+    <div class="daily-sentence" onclick="TTS.speak('${ds.ja.replace(/'/g,"\\'")}')">
+      <div class="ds-label">📝 今日一句 · ${ds.note}</div>
+      <div class="ds-ja">${ds.ja}</div>
+      <div class="ds-rd">${ds.rd}</div>
+      <div class="ds-zh">${ds.zh}</div>
+    </div>
     <div class="card" style="margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;margin-bottom:8px">
         <span style="font-size:14px;font-weight:600">今日進度</span>
         <span style="font-size:14px;color:var(--text-secondary)">${prog} / ${goal}</span>
       </div>
       <div class="progress-bar"><div class="fill" style="width:${pct}%;background:${pct>=100?"var(--accent-success)":"var(--accent-primary)"}"></div></div>
+      ${pct>=100?'<div style="text-align:center;font-size:13px;color:var(--accent-success);margin-top:8px;font-weight:600">🎉 今日目標已達成！</div>':''}
     </div>
     <div class="stats-row">
       <div class="stat-card"><div class="stat-value">${learned}</div><div class="stat-label">已學單字</div></div>
@@ -859,15 +1186,51 @@ render(){
       <div class="today-chip"><strong>${due}</strong>待複習</div>
       <div class="today-chip"><strong>${nw}</strong>新單字</div>
     </div>
-    <button class="btn btn-primary btn-block" style="margin:16px 0" onclick="Router.go('vocab')">開始今日學習</button>
-    ${errCount?`<button class="btn btn-secondary btn-block" style="margin-bottom:16px" onclick="ErrorBook.show()">📕 錯題本 (${errCount})</button>`:''}
+    <button class="btn btn-primary btn-block" style="margin:16px 0" onclick="Home.startStudy()">
+      ${pct>=100?'繼續複習':'開始今日學習'} <span class="mascot mascot-sm" style="margin-left:4px">${MASCOT_STATES.studying}</span>
+    </button>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="btn btn-secondary" style="flex:1" onclick="ScenarioMode.show()">🗣️ 場景對話</button>
+      ${errCount?`<button class="btn btn-secondary" style="flex:1" onclick="ErrorBook.show()">📕 錯題本 (${errCount})</button>`:''}
+    </div>
+    ${learned>0?`<div class="card" style="margin-bottom:12px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">📊 記憶強度地圖</div>
+      <div style="font-size:11px;color:var(--text-hint);margin-bottom:8px">每格代表一個單字 · 顏色越深記憶越強</div>
+      ${this.renderMemoryMap(d)}
+    </div>`:''}
     <div class="card">
       <div style="font-size:13px;font-weight:600;margin-bottom:8px">最近 7 天</div>
       <div class="mini-chart">${hist.map((h,i)=>`<div class="bar${i===hist.length-1?" today":""}" style="height:${Math.max(8,h.count/maxC*100)}%"></div>`).join("")}</div>
       <div class="chart-labels">${hist.map(h=>{if(!h.date)return"<span>-</span>";const dd=new Date(h.date);return`<span>${days[dd.getDay()]}</span>`}).join("")}</div>
     </div>
-    <div style="font-size:12px;color:var(--text-hint);text-align:center;margin-top:12px">FSRS-4.5 智慧間隔重複 · ${total} 個 N5 單字</div>`;
-}};
+    <div style="font-size:12px;color:var(--text-hint);text-align:center;margin-top:12px">FSRS-4.5 智慧間隔重複 · ${total} 個 N5 單字 · v3.0.0</div>`;
+},
+startStudy(){
+  SessionRitual.show('vocab',()=>Router.go('vocab'));
+},
+renderMemoryMap(d){
+  let html='<div class="memory-map">';
+  VOCAB.forEach(v=>{
+    const card=d.vocab[String(v.id)];
+    let color,strength='未學習';
+    if(!card){color='var(--bg-secondary)'}
+    else{
+      const s=card.stability||0;const diff=card.difficulty||5;
+      if(s>=30){color='rgba(52,199,89,0.9)';strength='強'}
+      else if(s>=10){color='rgba(52,199,89,0.6)';strength='中上'}
+      else if(s>=3){color='rgba(255,159,10,0.6)';strength='中'}
+      else if(s>=1){color='rgba(255,159,10,0.35)';strength='弱'}
+      else{color='rgba(255,59,48,0.4)';strength='很弱'}
+    }
+    html+=`<div class="memory-cell" style="background:${color}" title="${v.w} ${v.m} - ${strength}"></div>`;
+  });
+  html+='</div>';
+  html+='<div style="display:flex;justify-content:center;gap:12px;font-size:10px;color:var(--text-hint);margin-top:4px">';
+  html+='<span>⬜ 未學</span><span style="color:rgba(255,59,48,0.7)">🟥 弱</span><span style="color:rgba(255,159,10,0.8)">🟧 中</span><span style="color:rgba(52,199,89,0.8)">🟩 強</span>';
+  html+='</div>';
+  return html;
+}
+};
 
 // ================================================================
 // MODULE: Error Book (錯題本)
@@ -876,7 +1239,7 @@ const ErrorBook={
 show(){
   const el=document.getElementById("home-content");
   const d=Store.load();const errors=(d.errorBook||[]).sort((a,b)=>b.count-a.count);
-  if(!errors.length){el.innerHTML=`<div class="vocab-empty"><div class="emoji">✅</div><h3>沒有錯題！</h3><p style="margin-top:8px">繼續加油！</p><button class="btn btn-secondary" style="margin-top:16px" onclick="Home.render()">← 返回</button></div>`;return}
+  if(!errors.length){el.innerHTML=`<div class="vocab-empty"><div class="emoji">✅</div><h3>沒有錯題！</h3><p style="margin-top:8px">太厲害了，繼續保持！</p><button class="btn btn-secondary" style="margin-top:16px" onclick="Home.render()">← 返回</button></div>`;return}
   let html=`<div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
     <button class="btn btn-secondary" onclick="Home.render()">← 返回</button>
     <button class="btn btn-primary" onclick="ErrorBook.review()">複習錯題</button>
@@ -897,6 +1260,118 @@ review(){
     return v?{vocab:v,card:d.vocab[String(v.id)]||FSRS.newCard()}:null}).filter(Boolean);
   VocabMod.idx=0;VocabMod.flipped=false;VocabMod.session={correct:0,wrong:0,total:VocabMod.deck.length};
   Router.go('vocab');VocabMod.render()}
+};
+
+// ================================================================
+// MODULE: Scenario Dialogue (Real-world practice)
+// ================================================================
+const ScenarioMode={
+current:null,dialogueIdx:0,score:0,total:0,
+show(){
+  const el=document.getElementById("home-content");
+  const d=Store.load();
+  const done=d.scenariosDone||[];
+  let html=`<div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="Home.render()">← 返回</button></div>
+    <div class="section-title">🗣️ 場景對話</div>
+    <div style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">在真實場景中練習日語！每個場景模擬一段對話。</div>`;
+  SCENARIOS.forEach(s=>{
+    const isDone=done.includes(s.id);
+    html+=`<div class="card" style="margin-bottom:10px;cursor:pointer${isDone?';border-color:var(--accent-success)':''}" onclick="ScenarioMode.start('${s.id}')">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:18px;font-weight:600;margin-bottom:4px">${s.title}</div>
+          <div style="font-size:13px;color:var(--text-secondary)">${s.desc}</div>
+        </div>
+        <div style="font-size:24px">${isDone?'✅':'→'}</div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML=html;
+},
+start(id){
+  this.current=SCENARIOS.find(s=>s.id===id);
+  if(!this.current)return;
+  this.dialogueIdx=0;this.score=0;this.total=0;
+  this.renderDialogue();
+},
+renderDialogue(){
+  const el=document.getElementById("home-content");
+  const s=this.current;const dlg=s.dialogues;
+  let html=`<div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="ScenarioMode.show()">← 返回</button></div>
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:20px;font-weight:700">${s.title}</div>
+      <div style="font-size:13px;color:var(--text-secondary)">${s.desc}</div>
+    </div>
+    <div class="dialogue-container">`;
+  // Show all dialogues up to current index
+  for(let i=0;i<=Math.min(this.dialogueIdx,dlg.length-1);i++){
+    const d=dlg[i];
+    if(d.npc){
+      html+=`<div class="dialogue-bubble dialogue-npc">
+        <div style="font-weight:600">${d.npc}</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">${d.npc_zh}</div>
+      </div>`;
+    }
+    if(d.prompt&&i===this.dialogueIdx){
+      html+=`<div style="font-size:14px;color:var(--accent-secondary);margin:12px 0 8px;font-weight:600">${d.prompt}</div>`;
+      html+=`<div class="dialogue-choices">`;
+      d.choices.forEach((c,ci)=>{
+        html+=`<button class="dialogue-choice" id="dc-${ci}" onclick="ScenarioMode.choose(${ci})">
+          <div class="dc-ja">${c.ja}</div>
+          <div class="dc-zh">${c.zh}</div>
+        </button>`;
+      });
+      html+=`</div>`;
+    }else if(d.prompt&&i<this.dialogueIdx){
+      // Show the user's previous answer
+      const correct=d.choices.find(c=>c.correct);
+      html+=`<div class="dialogue-bubble dialogue-user">${correct.ja}</div>`;
+    }
+  }
+  html+=`</div>`;
+  // Show completion
+  if(this.dialogueIdx>=dlg.length){
+    const pct=this.total>0?Math.round(this.score/this.total*100):100;
+    html+=`<div style="text-align:center;margin-top:24px" class="anim-fade-in">
+      <div style="font-size:48px;margin-bottom:8px">${pct>=80?'🎉':'🤔'}</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:8px">對話完成！</div>
+      <div style="color:var(--text-secondary);margin-bottom:16px">正確率：${pct}% (${this.score}/${this.total})</div>
+      <button class="btn btn-primary" onclick="ScenarioMode.show()">返回場景列表</button>
+    </div>`;
+    showConfetti();
+  }
+  el.innerHTML=html;
+},
+choose(ci){
+  const d=this.current.dialogues[this.dialogueIdx];
+  if(!d||!d.choices)return;
+  const choice=d.choices[ci];
+  this.total++;
+  const btn=document.getElementById('dc-'+ci);
+  if(choice.correct){
+    this.score++;btn.classList.add('correct');
+    TTS.speak(choice.ja);
+    if(navigator.vibrate)navigator.vibrate([30]);
+  }else{
+    btn.classList.add('wrong');
+    const correctIdx=d.choices.findIndex(c=>c.correct);
+    document.getElementById('dc-'+correctIdx).classList.add('correct');
+    TTS.speak(d.choices[correctIdx].ja);
+    if(navigator.vibrate)navigator.vibrate([50,30,50]);
+  }
+  document.querySelectorAll('.dialogue-choice').forEach(b=>b.style.pointerEvents='none');
+  setTimeout(()=>{
+    this.dialogueIdx++;
+    if(this.dialogueIdx>=this.current.dialogues.length){
+      // Mark scenario as done
+      const data=Store.load();
+      if(!data.scenariosDone)data.scenariosDone=[];
+      if(!data.scenariosDone.includes(this.current.id))data.scenariosDone.push(this.current.id);
+      Store.save();Store.updateStreak();Achievements.check(data);
+    }
+    this.renderDialogue();
+  },1200);
+}
 };
 
 // ================================================================
@@ -967,8 +1442,8 @@ rate(ok){
   Store.save();Store.updateStreak();
   if(navigator.vibrate)navigator.vibrate(ok?[30]:[50,30,50]);
   this.idx++;this.flipped=false;
-  if(this.idx>=this.deck.length){this.deck=[];this.idx=0;
-    showModal("完成！",pick(ENCOURAGE.completion),[{text:"再來一次",cls:"btn-primary",action:()=>{hideModal();Gojuon.render()}},{text:"關閉",cls:"btn-secondary",action:hideModal}]);return}
+  if(this.idx>=this.deck.length){this.deck=[];this.idx=0;showConfetti();
+    showModal("完成！ 🎉",pick(ENCOURAGE.completion),[{text:"再來一次",cls:"btn-primary",action:()=>{hideModal();Gojuon.render()}},{text:"關閉",cls:"btn-secondary",action:hideModal}]);return}
   this.renderFlashcard(document.getElementById("gojuon-content"))},
 renderWriting(el){
   if(!this.deck.length){this.deck=shuffle(ALL_KANA);this.idx=0}
@@ -1007,8 +1482,8 @@ writingRate(ok){
   else{d.gojuon[k.r].wrongCount++}
   d.gojuon[k.r].lastPracticed=today();d.todayStats.gojuonPracticed++;Store.save();Store.updateStreak();
   this.idx++;this.writingPhase="show";
-  if(this.idx>=this.deck.length){this.deck=[];this.idx=0;
-    showModal("書寫練習完成！",pick(ENCOURAGE.completion),[{text:"再來",cls:"btn-primary",action:()=>{hideModal();Gojuon.render()}},{text:"關閉",cls:"btn-secondary",action:hideModal}]);return}
+  if(this.idx>=this.deck.length){this.deck=[];this.idx=0;showConfetti();
+    showModal("書寫練習完成！ 🎉",pick(ENCOURAGE.completion),[{text:"再來",cls:"btn-primary",action:()=>{hideModal();Gojuon.render()}},{text:"關閉",cls:"btn-secondary",action:hideModal}]);return}
   this.renderWriting(document.getElementById("gojuon-content"))},
 renderQuiz(el){
   if(!this.quizItem||this.answered){
@@ -1037,7 +1512,6 @@ answer(i){
   TTS.speak(this.quizItem.h);
   setTimeout(()=>{this.quizItem=null;this.renderQuiz(document.getElementById("gojuon-content"))},1200)}
 };
-// Gojuon pill handlers
 document.getElementById("gojuon-script-pills").addEventListener("click",e=>{
   const p=e.target.closest(".pill");if(!p)return;
   document.querySelectorAll("#gojuon-script-pills .pill").forEach(x=>x.classList.remove("active"));
@@ -1061,7 +1535,9 @@ init(){
   this.render()},
 render(){
   const el=document.getElementById("vocab-content");
-  if(!this.deck.length){el.innerHTML=`<div class="vocab-empty"><div class="emoji">🎌</div><h3>今日學習完成！</h3><p style="margin-top:8px;color:var(--text-secondary)">明天再來複習吧</p><button class="btn btn-secondary" style="margin-top:16px" onclick="VocabMod.browseAll()">瀏覽所有單字</button></div>`;return}
+  if(!this.deck.length){el.innerHTML=`<div class="vocab-empty"><div class="emoji">🎌</div><h3>今日學習完成！</h3>
+    <div class="mascot mascot-lg anim-float" style="margin:16px 0">${MASCOT_STATES.celebrating}</div>
+    <p style="margin-top:8px;color:var(--text-secondary)">明天再來複習吧</p><button class="btn btn-secondary" style="margin-top:16px" onclick="VocabMod.browseAll()">瀏覽所有單字</button></div>`;return}
   if(this.idx>=this.deck.length){this.renderComplete(el);return}
   const item=this.deck[this.idx];const v=item.vocab;
   const pct=Math.round(this.idx/this.deck.length*100);
@@ -1111,8 +1587,10 @@ renderComplete(el){
   const total=this.session.correct+this.session.wrong;
   const pct=total>0?Math.round(this.session.correct/total*100):0;
   const d=Store.load();Achievements.check(d);
+  showConfetti();
   el.innerHTML=`<div class="vocab-complete anim-fade-in">
-    <div class="emoji">🎉</div><h2>今日學習完成！</h2>
+    <div class="mascot mascot-lg mascot-happy">${pct>=80?MASCOT_STATES.celebrating:MASCOT_STATES.cheering}</div>
+    <h2 style="margin-top:12px">今日學習完成！</h2>
     <div class="result-circle" style="background:conic-gradient(var(--accent-success) ${pct*3.6}deg,var(--bg-secondary) 0)">
       <div style="width:110px;height:110px;border-radius:50%;background:var(--bg-primary);display:flex;flex-direction:column;align-items:center;justify-content:center">
         <div class="pct">${pct}%</div><div class="pct-label">正確率</div>
@@ -1141,7 +1619,7 @@ browseAll(){
 };
 
 // ================================================================
-// MODULE: Quiz
+// MODULE: Quiz (with scenario quiz type)
 // ================================================================
 const Quiz={
 state:"setup",type:"vocab_choice",count:10,questions:[],qIdx:0,answers:[],startTime:0,
@@ -1149,22 +1627,23 @@ init(){this.state="setup";this.renderSetup()},
 renderSetup(){
   const el=document.getElementById("quiz-content");
   const types=[
-    {id:"vocab_choice",name:"單字選擇題 (日→中)",desc:"看日文選中文意思"},
-    {id:"vocab_reverse",name:"反向選擇題 (中→日)",desc:"看中文選日文"},
-    {id:"vocab_typing",name:"打字填空",desc:"看中文打出假名讀音"},
-    {id:"gojuon_quiz",name:"五十音測驗",desc:"看假名選羅馬拼音"}
+    {id:"vocab_choice",name:"單字選擇題 (日→中)",desc:"看日文選中文意思",icon:"🇯🇵"},
+    {id:"vocab_reverse",name:"反向選擇題 (中→日)",desc:"看中文選日文",icon:"🔄"},
+    {id:"vocab_typing",name:"打字填空",desc:"看中文打出假名讀音",icon:"⌨️"},
+    {id:"gojuon_quiz",name:"五十音測驗",desc:"看假名選羅馬拼音",icon:"あ"}
   ];
   el.innerHTML=`<div class="quiz-setup">
     <h2 style="text-align:center;margin-bottom:16px">選擇測驗類型</h2>
-    <div class="quiz-type-list">${types.map(t=>`<div class="quiz-type-item${this.type===t.id?" selected":""}" onclick="Quiz.setType('${t.id}')"><h4>${t.name}</h4><p>${t.desc}</p></div>`).join("")}</div>
+    <div class="quiz-type-list">${types.map(t=>`<div class="quiz-type-item${this.type===t.id?" selected":""}" onclick="Quiz.setType('${t.id}')"><h4>${t.icon} ${t.name}</h4><p>${t.desc}</p></div>`).join("")}</div>
     <div style="text-align:center;font-size:14px;color:var(--text-secondary);margin-bottom:4px">題數</div>
     <div class="quiz-count">
       <button onclick="Quiz.adjCount(-5)">-</button><div class="num">${this.count}</div><button onclick="Quiz.adjCount(5)">+</button>
     </div>
-    <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="Quiz.start()">開始測驗</button>
+    <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="Quiz.startWithRitual()">開始測驗</button>
   </div>`},
 setType(t){this.type=t;this.renderSetup()},
 adjCount(n){this.count=Math.max(5,Math.min(30,this.count+n));this.renderSetup()},
+startWithRitual(){SessionRitual.show('quiz',()=>this.start())},
 start(){
   this.questions=[];this.answers=[];this.qIdx=0;this.startTime=Date.now();
   if(this.type==="gojuon_quiz"){
@@ -1246,9 +1725,10 @@ renderResult(el){
   if(d.quizHistory.length>50)d.quizHistory=d.quizHistory.slice(-50);
   d.todayStats.quizzesTaken++;d.todayStats.correctRate=pct;
   Store.save();Store.updateStreak();Achievements.check(d);
-  this.state="result";
+  this.state="result";showConfetti();
   el.innerHTML=`<div class="quiz-result anim-fade-in">
-    <h2>測驗結果</h2>
+    <div class="mascot mascot-lg mascot-happy">${pct>=80?MASCOT_STATES.celebrating:pct>=50?MASCOT_STATES.cheering:MASCOT_STATES.worried}</div>
+    <h2 style="margin-top:8px">測驗結果</h2>
     <div class="result-circle" style="background:conic-gradient(${pct>=80?"var(--accent-success)":pct>=50?"var(--accent-warning)":"var(--accent-error)"} ${pct*3.6}deg,var(--bg-secondary) 0);margin:20px auto">
       <div style="width:110px;height:110px;border-radius:50%;background:var(--bg-primary);display:flex;flex-direction:column;align-items:center;justify-content:center">
         <div class="pct">${pct}%</div><div class="pct-label">正確率</div>
@@ -1282,7 +1762,7 @@ retryWrong(){
 };
 
 // ================================================================
-// MODULE: Settings (with Achievements gallery + Install prompt)
+// MODULE: Settings (with streak freeze, review cap, achievements)
 // ================================================================
 let deferredInstallPrompt=null;
 const Settings={
@@ -1315,11 +1795,33 @@ render(){
         </div>
       </div>
       <div class="settings-item">
+        <span class="label">複習上限</span>
+        <div class="daily-adj">
+          <button onclick="Settings.adjCap(-10)">-</button>
+          <span class="num">${d.settings.reviewCap}</span>
+          <button onclick="Settings.adjCap(10)">+</button>
+        </div>
+      </div>
+      <div class="settings-item">
         <span class="label">🔊 發音功能</span>
         <div class="theme-btns">
           <button class="theme-btn${d.settings.soundEnabled?" active":""}" onclick="Settings.setSound(true)">開啟</button>
           <button class="theme-btn${!d.settings.soundEnabled?" active":""}" onclick="Settings.setSound(false)">關閉</button>
         </div>
+      </div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-group-title">🧊 免死金牌 (Streak Freeze)</div>
+      <div class="settings-item">
+        <div>
+          <span class="label">剩餘數量</span>
+          <div style="font-size:12px;color:var(--text-hint);margin-top:2px">缺席一天時自動使用，保護連續記錄</div>
+        </div>
+        <div class="streak-freeze-badge">🧊 ×${d.streakFreezes}</div>
+      </div>
+      <div class="settings-item" style="cursor:pointer" onclick="Settings.buyFreeze()">
+        <span class="label">獲得免死金牌</span>
+        <span class="value" style="color:var(--accent-secondary)">連續7天自動獲得 →</span>
       </div>
     </div>
     <div class="settings-group">
@@ -1345,6 +1847,7 @@ render(){
       <div class="settings-item"><span class="label">總學習單字</span><span class="value">${Object.keys(d.vocab).length} / ${VOCAB.length}</span></div>
       <div class="settings-item"><span class="label">最長連續天數</span><span class="value">${d.streak.longest} 天</span></div>
       <div class="settings-item"><span class="label">測驗次數</span><span class="value">${d.quizHistory.length} 次</span></div>
+      <div class="settings-item"><span class="label">場景完成</span><span class="value">${(d.scenariosDone||[]).length} / ${SCENARIOS.length}</span></div>
       <div class="settings-item"><span class="label">錯題數</span><span class="value">${(d.errorBook||[]).length}</span></div>
       <div class="settings-item"><span class="label">演算法</span><span class="value">FSRS-4.5</span></div>
     </div>
@@ -1352,12 +1855,23 @@ render(){
       <div class="settings-group-title">危險區域</div>
       <button class="danger-btn" onclick="Settings.confirmReset()">重置所有進度</button>
     </div>
-    <div class="version-info">日本語マスター v2.0.0<br>FSRS-4.5 智慧間隔重複演算法<br>資料儲存於瀏覽器本機</div>`;
-  // Show install button if available
+    <div class="version-info">日本語マスター v3.0.0<br>FSRS-4.5 · User Care Edition<br>🦊 你的日語學習夥伴<br>資料儲存於瀏覽器本機</div>`;
   if(deferredInstallPrompt){document.getElementById('install-btn').style.display='block'}},
 setTheme(t){Theme.set(t);this.render()},
 setSound(v){const d=Store.load();d.settings.soundEnabled=v;Store.save();this.render();if(v)TTS.speak("こんにちは")},
 adjGoal(n){const d=Store.load();d.settings.dailyGoal=Math.max(1,Math.min(30,d.settings.dailyGoal+n));Store.save();this.render()},
+adjCap(n){const d=Store.load();d.settings.reviewCap=Math.max(10,Math.min(100,d.settings.reviewCap+n));Store.save();this.render()},
+buyFreeze(){
+  const d=Store.load();
+  if(d.streak.current>=7&&d.streakFreezes<5){
+    d.streakFreezes++;Store.save();this.render();
+    showModal("獲得免死金牌！🧊",`連續學習7天獎勵！你現在有 ${d.streakFreezes} 個免死金牌。`,[{text:"太棒了！",cls:"btn-primary",action:hideModal}]);
+  }else if(d.streakFreezes>=5){
+    showModal("已達上限","你最多可以持有 5 個免死金牌",[{text:"知道了",cls:"btn-secondary",action:hideModal}]);
+  }else{
+    showModal("繼續努力！","連續學習 7 天就能獲得免死金牌！\n目前連續："+d.streak.current+" 天",[{text:"加油！",cls:"btn-primary",action:hideModal}]);
+  }
+},
 importFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{
   if(Store.importData(ev.target.result)){showModal("匯入成功","學習記錄已成功還原！",[{text:"確定",cls:"btn-primary",action:()=>{hideModal();Settings.render()}}])}
   else{showModal("匯入失敗","檔案格式不正確",[{text:"關閉",cls:"btn-secondary",action:hideModal}])}};r.readAsText(f)},
@@ -1384,24 +1898,21 @@ function showModal(title,msg,actions){
 function hideModal(){document.getElementById("modal-overlay").classList.remove("show")}
 
 // ================================================================
-// PWA: Service Worker + Manifest
+// PWA
 // ================================================================
 (function initPWA(){
-  // Inline manifest
   const manifest={
     name:"日本語マスター",short_name:"日語學習",
     start_url:".",display:"standalone",
-    background_color:"#FAFAF8",theme_color:"#C41E3A",
-    icons:[{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#C41E3A"/><text x="50" y="65" font-size="50" text-anchor="middle" fill="white" font-family="serif">語</text></svg>'),sizes:"512x512",type:"image/svg+xml"}]
+    background_color:"#F7F6F3",theme_color:"#D4513D",
+    icons:[{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#D4513D"/><text x="50" y="38" font-size="28" text-anchor="middle" fill="white">🦊</text><text x="50" y="72" font-size="28" text-anchor="middle" fill="white" font-family="serif">語</text></svg>'),sizes:"512x512",type:"image/svg+xml"}]
   };
   const mBlob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
   const mURL=URL.createObjectURL(mBlob);
   const link=document.createElement('link');link.rel='manifest';link.href=mURL;
   document.head.appendChild(link);
-
-  // Inline service worker
   const swCode=`
-    const CACHE='nihongo-v2';
+    const CACHE='nihongo-v3';
     self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/'])).catch(()=>{}));self.skipWaiting()});
     self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
     self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{if(res.status===200){const c=res.clone();caches.open(CACHE).then(ca=>ca.put(e.request,c))}return res}).catch(()=>new Response('Offline',{status:503})))});
@@ -1413,8 +1924,6 @@ function hideModal(){document.getElementById("modal-overlay").classList.remove("
       navigator.serviceWorker.register(swURL,{scope:'.'}).catch(()=>{});
     }catch(e){}
   }
-
-  // Install prompt capture
   window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;
     const btn=document.getElementById('install-btn');if(btn)btn.style.display='block'});
 })();
@@ -1423,11 +1932,23 @@ function hideModal(){document.getElementById("modal-overlay").classList.remove("
 // APP INIT
 // ================================================================
 (function(){
-  Store.load();Theme.init();TTS.init();Router.init();Home.render();
+  Store.load();Theme.init();TTS.init();Router.init();
+  // Show onboarding for first-time users
+  Onboarding.show();
+  document.getElementById('onboard-btn').addEventListener('click',()=>Onboarding.next());
+  Home.render();
   const d=Store.load();
   if(d.todayStats.date!==today()){
     d.todayStats={date:today(),newWordsLearned:0,wordsReviewed:0,gojuonPracticed:0,quizzesTaken:0,correctRate:0,timeSpent:0};
     Store.save()}
+  // Auto-grant streak freeze every 7 days
+  if(d.streak.current>0&&d.streak.current%7===0&&d.streakFreezes<5){
+    d.streakFreezes++;Store.save();
+    setTimeout(()=>{const t=document.getElementById('ach-toast');
+      t.querySelector('.toast-icon').textContent='🧊';
+      t.querySelector('.toast-text').textContent=`連續7天獎勵：獲得免死金牌！(共${d.streakFreezes}個)`;
+      t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)},1000);
+  }
   Achievements.check(d);
   // WebView detection
   const ua=navigator.userAgent||"";
