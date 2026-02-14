@@ -547,67 +547,54 @@ getNew(limit=5){const d=Store.load();const learned=new Set(Object.keys(d.vocab))
 // CORE: TTS (Text-to-Speech) Engine
 // ================================================================
 const TTS={
-_speaking:false,
-_unlocked:false,  // Track if audio context has been unlocked by user gesture
-_voices:[],
-_voiceReady:false,
+_audio:null,
+_unlocked:false,
 get enabled(){return Store.load().settings.soundEnabled},
 
-// Initialize: load voices and set up unlock listener
 init(){
-  if(!window.speechSynthesis)return;
-  // Load voices (async on some browsers)
-  const loadVoices=()=>{
-    this._voices=speechSynthesis.getVoices();
-    if(this._voices.length)this._voiceReady=true;
-  };
-  loadVoices();
-  speechSynthesis.onvoiceschanged=loadVoices;
+  // Create reusable Audio element
+  this._audio=new Audio();
+  this._audio.volume=1;
 
-  // Unlock TTS on first user interaction (required by mobile browsers)
+  // Unlock audio on first user touch/click (mobile requirement)
   const unlock=()=>{
     if(this._unlocked)return;
-    // Speak empty utterance to unlock audio context
-    const u=new SpeechSynthesisUtterance("");
-    u.volume=0;u.lang="ja-JP";
-    speechSynthesis.speak(u);
+    this._audio.play().catch(()=>{});
+    this._audio.pause();
+    this._audio.currentTime=0;
     this._unlocked=true;
-    // Remove listeners after unlock
-    document.removeEventListener("touchstart",unlock);
-    document.removeEventListener("click",unlock);
   };
-  document.addEventListener("touchstart",unlock,{once:false,passive:true});
-  document.addEventListener("click",unlock,{once:false});
+  document.addEventListener("touchstart",unlock,{passive:true});
+  document.addEventListener("click",unlock);
 },
 
-speak(text,lang="ja-JP"){
-  if(!this.enabled||!window.speechSynthesis||!text)return;
-  // Cancel any ongoing speech
+speak(text){
+  if(!this.enabled||!text)return;
+  try{
+    // Stop any current playback
+    if(this._audio){this._audio.pause();this._audio.currentTime=0}
+
+    // Use Google Translate TTS endpoint (most reliable on mobile)
+    const url="https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ja&q="+encodeURIComponent(text);
+    this._audio.src=url;
+    this._audio.play().catch(e=>{
+      // Fallback to Web Speech API if Google TTS fails
+      this._speakFallback(text);
+    });
+  }catch(e){
+    this._speakFallback(text);
+  }
+},
+
+// Fallback: Web Speech API
+_speakFallback(text){
+  if(!window.speechSynthesis)return;
   speechSynthesis.cancel();
-
-  // Small delay to ensure cancel completes (Chrome bug workaround)
-  setTimeout(()=>{
-    const u=new SpeechSynthesisUtterance(text);
-    u.lang=lang;u.rate=0.8;u.pitch=1;u.volume=1;
-
-    // Find best Japanese voice
-    if(this._voices.length){
-      const ja=this._voices.filter(v=>v.lang&&(v.lang.startsWith("ja")||v.lang.includes("JP")));
-      // Prefer local/native voices over network voices for reliability
-      const local=ja.find(v=>v.localService);
-      const any=ja[0];
-      if(local)u.voice=local;else if(any)u.voice=any;
-    }
-
-    u.onstart=()=>this._speaking=true;
-    u.onend=()=>this._speaking=false;
-    u.onerror=(e)=>{this._speaking=false;console.log("TTS error:",e.error)};
-
-    speechSynthesis.speak(u);
-  },50);
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="ja-JP";u.rate=0.8;u.volume=1;
+  speechSynthesis.speak(u);
 },
 
-// Play and highlight the button that triggered it
 playBtn(text,btnEl){
   if(!this.enabled)return;
   this.speak(text);
