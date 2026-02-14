@@ -1911,18 +1911,13 @@ function hideModal(){document.getElementById("modal-overlay").classList.remove("
   const mURL=URL.createObjectURL(mBlob);
   const link=document.createElement('link');link.rel='manifest';link.href=mURL;
   document.head.appendChild(link);
-  const swCode=`
-    const CACHE='nihongo-v3';
-    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/'])).catch(()=>{}));self.skipWaiting()});
-    self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
-    self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{if(res.status===200){const c=res.clone();caches.open(CACHE).then(ca=>ca.put(e.request,c))}return res}).catch(()=>new Response('Offline',{status:503})))});
-  `;
+  // Unregister any broken service workers from previous versions
   if('serviceWorker' in navigator){
-    try{
-      const swBlob=new Blob([swCode],{type:'application/javascript'});
-      const swURL=URL.createObjectURL(swBlob);
-      navigator.serviceWorker.register(swURL,{scope:'.'}).catch(()=>{});
-    }catch(e){}
+    navigator.serviceWorker.getRegistrations().then(regs=>{
+      regs.forEach(r=>r.unregister());
+    }).catch(()=>{});
+    // Clear old caches
+    if(window.caches){caches.keys().then(ks=>ks.forEach(k=>caches.delete(k))).catch(()=>{});}
   }
   window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;
     const btn=document.getElementById('install-btn');if(btn)btn.style.display='block'});
