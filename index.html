@@ -286,12 +286,11 @@ input{font-family:inherit;border:none;outline:none;background:none;color:inherit
 </head>
 <body>
 <!-- WebView detection banner -->
-<div class="webview-banner" id="webview-banner" style="display:none">
-  <div class="banner-text">🔇 目前無法播放聲音，請點右邊按鈕用瀏覽器開啟</div>
-  <a class="banner-btn" id="open-browser-btn" href="" target="_blank" rel="noopener">開啟瀏覽器</a>
+<div class="webview-banner" id="webview-banner" style="display:none;flex-wrap:wrap">
+  <div class="banner-text">🔇 無法播放聲音，請點右上 ⋮ 選「在瀏覽器中開啟」</div>
+  <button class="banner-btn" id="copy-url-btn" onclick="navigator.clipboard.writeText(location.href).then(()=>{this.textContent='✅ 已複製'}).catch(()=>{prompt('複製此網址到瀏覽器開啟：',location.href)})">複製網址</button>
   <button class="banner-close" onclick="document.getElementById('webview-banner').style.display='none';document.querySelectorAll('.page').forEach(p=>p.style.paddingTop='')">✕</button>
 </div>
-<script>document.getElementById("open-browser-btn").href=location.href;</script>
 <div id="app">
 
 <!-- ===== HOME PAGE ===== -->
